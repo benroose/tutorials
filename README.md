@@ -1,2 +1,2 @@
 # tutorials
-EECS tutorials and how-tos
+EECS tutorials and reference cards
