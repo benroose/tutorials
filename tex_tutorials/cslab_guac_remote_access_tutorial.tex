@@ -84,9 +84,10 @@
 \includegraphics[width=\linewidth]{screenshot_cslab_initial_homescreen}
 \centering
 \end{figure}
-\item To connect into an LXDE graphical desktop session for working on programming assignments click on \texttt{CSLAB\_RDP}.
-\item To connect into a command-line terminal session for working on programming assignments click on \texttt{CSLAB\_SSH}.
+\item To connect into an LXDE graphical RDP desktop session for working on programming assignments click on \texttt{CSLAB\_RDP}.
+\item To connect into a command-line SSH terminal session for working on programming assignments click on \texttt{CSLAB\_SSH}.
 \item When you next log into \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu} the \textit{Apache Guacamole} home screen will show clickable thumbnails of your recent connections.
+\item When you first connect into an RDP desktop session, occasionally you may see a policykit error message pop up. This is a known software bug which is being worked on. Clicking the OK button will close the error and it should not affect the rest of your login session.
 \item To log out of \textit{Guacamole} from the home screen, click on your \texttt{myWSU\_ID} at the top right. This drop-down list also enables you to open the \texttt{Settings} menu which includes displaying an on-screen keyboard for mobile devices.
 
 \begin{figure}[h]
@@ -192,16 +193,44 @@ guacctl -s custom_upload_directory
 
 %------------------------------------------------
 
-\question{How many tabs/windows can I open into the remote environment? }\label{limitations}
+\question{How many web-browser tabs/windows can I open into the remote environment? }\label{multiple bowser tabs}
 
 \begin{itemize}
-\item A restriction within the RDP remote desktop software only allows a single connection per user, which means you can only view the remote RDP desktop session from one web-browser tab/window. If you attempt to open more than one web-browser tab/window and connect to multiple RDP desktop sessions, then the gateway will disconnect from one tab and reconnect in another tab.
-\item A restriction within the SSH software allows a maximum of six concurrent connections per user, which means you can open up to six web-browser tabs/windows into remote SSH terminal sessions at the same time. Each open SSH terminal session tab/window will run a separate Bash shell instance on the same remote cslab server.
-\item You can also use the \texttt{tmux} or \texttt{screen} terminal multiplexer commands to run multiple command-line shells concurrently.
-\item You can open one web-browser tab/window to connect to an RDP desktop session and open one or more additional tabs/windows to connect to SSH terminal sessions concurrently. However, there is no guarantee that your RDP desktop session and your SSH terminal session(s) will connect to the same remote cslab server.
-
-  We still have a slight glitch with policykit, which sometimes pops up an error message when a user first logs into an RDP session. Clicking the OK button will close the error and it shouldn't affect the student's work for the rest of that login session.
+\item A restriction within the RDP software only allows a single connection per user, which means you can view the remote RDP desktop session from only one web-browser tab/window at a time. If you attempt to open more than one web-browser tab/window and connect to multiple RDP desktop sessions, then the gateway will disconnect from one tab and reconnect in another tab.
+\item A restriction within the SSH software allows a maximum of six concurrent connections per user, which means you can open up to six web-browser tabs/windows into remote SSH terminal sessions at the same time. Each open SSH terminal session tab/window will run a separate command-line shell instance on the same remote cslab server.
+\item You can use the \texttt{tmux} or \texttt{screen} terminal multiplexer commands to run multiple command-line shells concurrently in the same SSH session tab/window.
+\item You can open one web-browser tab/window to connect to a graphical RDP desktop session and open additional tabs/windows to connect to SSH terminal sessions concurrently. However, the \textit{Apache Guacamole} system cannot guarantee that your RDP desktop session and your SSH terminal session(s) will connect to the same remote cslab server.
 \end{itemize}
+
+%------------------------------------------------
+
+\question{How do I access the cslab Linux environment on port 22 via an SSH client?}\label{ssh client}
+
+\textbf{Please only connect directly into the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the \textit{Guacamole} web-browser interface as discussed above.}
+
+\subsection*{Using \textit{OpenSSH} client on Linux or Mac OSX:}
+\begin{enumerate}
+\item Add the following host entry into your ~/.ssh/config file:
+\begin{verbatim}
+Host cslab-cluster cslab-cluster-last cslab-cluster.cs.wichita.edu cslab-cluster-last.cslab-cluster.cs.wichita.edu
+    ProxyCommand ssh cslab-bastion /usr/local/bin/ballast %h
+    HostKeyAlias cslab-cluster.cs.wichita.edu
+\end{verbatim}
+
+
+\item In your browser go to \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu}
+\item At the login screen enter your myWSU ID and password and you will be presented with the \textit{Apache Guacamole} home screen.
+\begin{figure}[h]
+%\caption{Example of \textit{Guacamole} home screen when you first log in}
+\includegraphics[width=\linewidth]{screenshot_cslab_initial_homescreen}
+\centering
+\end{figure}
+\item To connect into an LXDE graphical RDP desktop session for working on programming assignments click on \texttt{CSLAB\_RDP}.
+\item To connect into a command-line SSH terminal session for working on programming assignments click on \texttt{CSLAB\_SSH}.
+\item When you next log into \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu} the \textit{Apache Guacamole} home screen will show clickable thumbnails of your recent connections.
+\item When you first connect into an RDP desktop session, occasionally you may see a policykit error message pop up. This is a known software bug which is being worked on. Clicking the OK button will close the error and it should not affect the rest of your login session.
+\item To log out of \textit{Guacamole} from the home screen, click on your \texttt{myWSU\_ID} at the top right. This drop-down list also enables you to open the \texttt{Settings} menu which includes displaying an on-screen keyboard for mobile devices.
+\end{enumerate}
 
 %------------------------------------------------
 
