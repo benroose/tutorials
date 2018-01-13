@@ -87,7 +87,6 @@
 \item To connect into an LXDE graphical RDP desktop session for working on programming assignments click on \texttt{CSLAB\_RDP}.
 \item To connect into a command-line SSH terminal session for working on programming assignments click on \texttt{CSLAB\_SSH}.
 \item When you next log into \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu} the \textit{Apache Guacamole} home screen will show clickable thumbnails of your recent connections.
-\item When you first connect into an RDP desktop session, occasionally you may see a policykit error message pop up. This is a known software bug which is being worked on. Clicking the OK button will close the error and it should not affect the rest of your login session.
 \item To log out of \textit{Guacamole} from the home screen, click on your \texttt{myWSU\_ID} at the top right. This drop-down list also enables you to open the \texttt{Settings} menu which includes displaying an on-screen keyboard for mobile devices.
 
 \begin{figure}[h]
@@ -96,6 +95,7 @@
 \centering
 \end{figure}
 
+\item During your initial connection into an RDP desktop session, occasionally you may see a policykit error message pop-up window. This is a known software bug which is being worked on. Clicking the OK button will close the error and it should not affect the rest of your login session.
 \item To open/close the \textit{Guacamole} menu sidebar while in the cslab environment press the key combination \textbf{Ctrl+Alt+Shift}. The \textit{Guacamole} menu sidebar enables you to log out, disconnect, change settings, upload/download files, and use a remote clipboard.
 \item For further help on using the \textit{Guacamole} interface go to \href{https://guacamole.incubator.apache.org/doc/gug/using-guacamole.html}{Using Guacamole Guide}
 \end{enumerate}
@@ -210,27 +210,57 @@ guacctl -s custom_upload_directory
 
 \subsection*{Using \textit{OpenSSH} client on Linux or Mac OSX:}
 \begin{enumerate}
-\item Add the following host entry into your ~/.ssh/config file:
+  \item Add the following host entry into your \texttt{ $\sim$/.ssh/config} file:
+\end{enumerate}
 \begin{verbatim}
-Host cslab-cluster cslab-cluster-last cslab-cluster.cs.wichita.edu cslab-cluster-last.cslab-cluster.cs.wichita.edu
-    ProxyCommand ssh cslab-bastion /usr/local/bin/ballast %h
-    HostKeyAlias cslab-cluster.cs.wichita.edu
+Host cslab cslab-last cslab.cs.wichita.edu cslab-last.cs.wichita.edu
+  ProxyCommand ssh your_mywsu_id@cslab-bastion.cs.wichita.edu ballast %h
+  HostKeyAlias cslab.cs.wichita.edu
+  User your_mywsu_id
+\end{verbatim}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item In a local CLI terminal connect to the cslab remote environment by typing
+\begin{verbatim}
+ssh cslab
+\end{verbatim}
+\item The first time you connect to the cslab environment using SSH, you will be asked to confirm the authenticity of each SSH remote host, i.e.
+\begin{verbatim}
+The authenticity of host 'cslab.cs.wichita.edu' can't be established.
+ECDSA key fingerprint is
+SHA256:X6dBKj4sqYYPWol6MXSQvGhpIQ6qBxh7mBQhnSw8n64.
+Are you sure you want to continue connecting (yes/no)?
 \end{verbatim}
 
+Make sure the cslab-bastion and cslab host key fingerprints match one of the following before typing yes:
+\begin{verbatim}
+RSA key fingerprint is
+SHA256:0CUyGZAYMdOd8vTOK3AtM2XTX3lMaGA2NP73rR7s6Ns.
+DSA key fingerprint is
+SHA256:7zW122xr+aoBb5yiRI96nvdx8Ml07qLKHYwG2Wu6jIM.
+ECDSA key fingerprint is
+SHA256:X6dBKj4sqYYPWol6MXSQvGhpIQ6qBxh7mBQhnSw8n64.
+\end{verbatim}
 
-\item In your browser go to \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu}
-\item At the login screen enter your myWSU ID and password and you will be presented with the \textit{Apache Guacamole} home screen.
-\begin{figure}[h]
-%\caption{Example of \textit{Guacamole} home screen when you first log in}
-\includegraphics[width=\linewidth]{screenshot_cslab_initial_homescreen}
-\centering
-\end{figure}
-\item To connect into an LXDE graphical RDP desktop session for working on programming assignments click on \texttt{CSLAB\_RDP}.
-\item To connect into a command-line SSH terminal session for working on programming assignments click on \texttt{CSLAB\_SSH}.
-\item When you next log into \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu} the \textit{Apache Guacamole} home screen will show clickable thumbnails of your recent connections.
-\item When you first connect into an RDP desktop session, occasionally you may see a policykit error message pop up. This is a known software bug which is being worked on. Clicking the OK button will close the error and it should not affect the rest of your login session.
-\item To log out of \textit{Guacamole} from the home screen, click on your \texttt{myWSU\_ID} at the top right. This drop-down list also enables you to open the \texttt{Settings} menu which includes displaying an on-screen keyboard for mobile devices.
+\item When prompted, enter your myWSU password. You will be prompted twice, once for the cslab-bastion (SSH jumphost) and once for the cslab.
+\item If the SSH connection completed successfully, then you will be presented with a standard shell prompt:
+\begin{verbatim}
+your_my_wsuid@cslab-node-#:~$
+\end{verbatim}
 \end{enumerate}
+
+%------------------------------------------------
+
+\question{How do I access the last accessed cslab-node via an SSH client?}\label{ssh -last}
+
+\begin{itemize}
+\item When connecting to the cslab remote Linux environment using \texttt{ssh cslab}, the ballast load-balancer will redirect you to one of the least used cslab-nodes at time of connection. Since load-balancing is calculated by the ballast system on a one minute cycle, you may not be redirected to the same cslab-node the next time you create an SSH connection into cslab.
+\item To connect to the last cslab-node you previously accessed via the load-balancer, you can append \texttt{-last} to the ssh command, i.e
+\begin{verbatim}
+ssh cslab-last
+\end{verbatim}
+\item \textbf{NOTE: All cslab-nodes automatically reboot every night between 2am and 3am. Any processes left running on a node will be killed.} 
+\end{itemize} 
 
 %------------------------------------------------
 
