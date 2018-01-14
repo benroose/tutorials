@@ -30,7 +30,7 @@
 \setlength\parindent{0pt} % Removes all indentation from paragraphs
 
 % Create and define the list of questions
-\newlistof{questions}{faq}{\large FAQ for web-access to the cslab Linux environment}
+\newlistof{questions}{faq}{\large FAQ for remote access into cslab Linux environment}
 % This creates a new table of contents-like environment that will output a file with extension .faq
 \setlength\cftbeforefaqtitleskip{3em} % Adjusts the vertical space between the title and subtitle
 \setlength\cftafterfaqtitleskip{1em} % Adjusts the vertical space between the subtitle and the first question
@@ -40,11 +40,13 @@
 \newcommand{\question}[1] % This is what you will use to create a new question
 {
 \refstepcounter{questions} % Increases the questions counter, this can be referenced anywhere with \thequestions
+\hfill
+\goodbreak
 \par\noindent % Creates a new unindented paragraph
 \phantomsection % Needed for hyperref compatibility with the \addcontensline command
 \addcontentsline{faq}{questions}{#1} % Adds the question to the list of questions
 \todo[inline, color=green!40]{\textbf{#1}} % Uses the todonotes package to create a fancy box to put the question
-\vspace{1em} % White space after the question before the start of the answer
+%\vspace{0.5em} % White space after the question before the start of the answer
 }
 
 % Uncomment the line below to get rid of the trailing dots in the table of contents
@@ -67,13 +69,13 @@
 \listofquestions % This prints the subtitle and a list of all of your questions
 \bigskip % Create a gap between list and first question
 
-%\newpage % Comment this if you would like your questions and answers to start immediately after table of questions
+\newpage % Comment this if you would like your questions and answers to start immediately after table of questions
 
 %----------------------------------------------------------------------------------------
 %	QUESTIONS AND ANSWERS
 %----------------------------------------------------------------------------------------
 
-\question{How do I access the cslab Linux environment via a web-browser?}\label{login}
+\question{How do I access the cslab Linux environment via a web-browser?}\label{guac_login}
 
 \begin{enumerate}
 \item Open your favorite HTML5 compatible web-browser. To test the compatibility of your browser go to \href{https://html5test.com/}{html5test.com}
@@ -107,33 +109,35 @@
 \end{itemize}}
 
 %------------------------------------------------
-\newpage
+%% \newpage
 
-\question{What software is available within the cslab Linux environment?}\label{software}
+\question{What software is available within the cslab Linux environment?}\label{cslab_software}
 
-The cslab environment gives you both graphical and command-line Linux tools for writing, compiling, and debugging your CS programming class assignments. Software tools/packages installed on the cslab servers includes:
+The cslab environment gives you both graphical and command-line Linux tools for writing, compiling, and debugging your CS programming class assignments. The Linux operating system running in cslab is Debian 9 (stretch) with a default LXDE desktop and Bash shell. Software tools/packages installed on the cslab-nodes include:
 \begin{itemize}
 \item Text and code editors: leafpad, nano, vim, and emacs.
 \item Integrated development environments (IDE): atom, geany, and eclipse.
-\item Compiling tools: GNU C compiler (gcc), g++, make, perl, python, python3, and java.
+\item Compiling tools: GNU C compiler (gcc), g++, make, prolog, perl, python, and java.
 \item Debugging tools: GNU debugger (gdb) and data display debugger (ddd).
 \item Latex tools: pdflatex, texlive, and texmaker.
 \item Version control tools: git and subversion.
 \item GUI terminal emulators: terminator, lxterminal, and xterm.
 \item CLI terminal multiplexers: screen and tmux.
 \end{itemize}
-To check if a specific software package or version is installed within the cslab servers, connect into the SSH terminal session or open a terminal emulator in the RDP desktop session and type:
+To check if a specific software package or version is installed within the cslab-nodes, connect into the SSH terminal session or open a terminal emulator in the RDP desktop session and type:
 \begin{verbatim}
 apt list --installed specify_package_name_here
 \end{verbatim}
 
-If a Linux software package is not installed within the cslab environment which you require to complete your class assignment, then please ask your instructor whether this package can be installed for you by the EECS systems administrator.
+If a Linux software package is not installed within the cslab Linux environment which you require to complete your class assignment, then please ask your instructor whether this package can be installed for you by the EECS systems administrator.
+
+\bigskip
 
 \textbf{Do not attempt to install any software packages yourself!}
 
 %------------------------------------------------
 
-\question{How do I copy text within the remote cslab Linux environment? }\label{copying text}
+\question{How do I copy text within the cslab Linux environment? }\label{text_copying}
 
 \subsection*{Copying text from your local computer to the remote environment:}
 \begin{enumerate}
@@ -156,7 +160,7 @@ If a Linux software package is not installed within the cslab environment which 
 
 %------------------------------------------------
 
-\question{How do I download/upload files within the cslab Linux environment? }\label{upload/download files}
+\question{How do I download/upload files within the cslab Linux environment? }\label{file_copying}
 
 \subsection*{Using guacctl/guacget to download a file:}
 \begin{itemize}
@@ -171,7 +175,7 @@ guacget file_to_be_downloaded
 \subsection*{Drag-and-drop to upload a file:}
 \begin{itemize}
 \item You can drag-and-drop a file from your local computer onto the cslab web-browser window. This can be used in both RDP desktop and SSH terminal sessions.
-\item By default the file is uploaded into your user home directory on the remote server.
+\item By default the file is uploaded into your user home directory on the remote cslab-node.
 \item You can set a custom destination directory for future uploaded files when using drag-and-drop by typing:
 \begin{verbatim}
 guacctl -s custom_upload_directory
@@ -181,37 +185,38 @@ guacctl -s custom_upload_directory
 \subsection*{\textit{Guacamole} file browser to upload or download a file:}
 \begin{enumerate}
 \item Open the \textit{Guacamole} menu sidebar by pressing the key combination \textbf{Ctrl+Alt+Shift}.
-\item Click on the disk drive icon under [Devices] to open a file browser of the remote cslab server.
-\item Browse to your user home directory on the remote server. You can then browse to subdirectories within your user home. Your home directory full path on the remote server will look like the following:
+\item Click on the disk drive icon under [Devices] to open a file browser of the remote cslab-node.
+\item Browse to your user home directory on the remote server. You can then browse to subdirectories within your user home. Your home directory full path on the remote cslab-node will look like the following:
 \begin{verbatim}
 /opt/homes/stu##/your_myWSU_id/
 \end{verbatim}
-\item If you are unsure where your home directory is located on the remote server, in a terminal or in the SSH terminal session type \texttt{pwd} to show you the full path of your present working directory.
-\item Downloads are initiated by double-clicking on any file shown, while uploads are initiated by clicking the [Upload Files] button. Clicking [Upload Files] will open a file browsing dialog where you can choose one or more files from your local computer, ultimately uploading the selected files to the directory currently displayed within the remote server file browser.
+\item If you are unsure where your home directory is located on the remote cslab-node, in a terminal or in the SSH terminal session type \texttt{pwd} to show you the full path of your present working directory.
+\item Downloads are initiated by double-clicking on any file shown, while uploads are initiated by clicking the [Upload Files] button. Clicking [Upload Files] will open a file browsing dialog where you can choose one or more files from your local computer, ultimately uploading the selected files to the directory currently displayed within the remote cslab-node file browser.
 \item Close the \textit{Guacamole} menu sidebar by pressing the key combination \textbf{Ctrl+Alt+Shift}.
 \end{enumerate}
 
 %------------------------------------------------
 
-\question{How many web-browser tabs/windows can I open into the remote environment? }\label{multiple bowser tabs}
+\question{Can I open multiple browser tabs/windows into the cslab Linux environment? }\label{multiple_tabs}
 
 \begin{itemize}
 \item A restriction within the RDP software only allows a single connection per user, which means you can view the remote RDP desktop session from only one web-browser tab/window at a time. If you attempt to open more than one web-browser tab/window and connect to multiple RDP desktop sessions, then the gateway will disconnect from one tab and reconnect in another tab.
-\item A restriction within the SSH software allows a maximum of six concurrent connections per user, which means you can open up to six web-browser tabs/windows into remote SSH terminal sessions at the same time. Each open SSH terminal session tab/window will run a separate command-line shell instance on the same remote cslab server.
+\item A restriction within the SSH software allows a maximum of six concurrent connections per user, which means you can open up to six web-browser tabs/windows into remote SSH terminal sessions at the same time. Each open SSH terminal session tab/window will run a separate command-line shell instance on the same remote cslab-node.
 \item You can use the \texttt{tmux} or \texttt{screen} terminal multiplexer commands to run multiple command-line shells concurrently in the same SSH session tab/window.
-\item You can open one web-browser tab/window to connect to a graphical RDP desktop session and open additional tabs/windows to connect to SSH terminal sessions concurrently. However, the \textit{Apache Guacamole} system cannot guarantee that your RDP desktop session and your SSH terminal session(s) will connect to the same remote cslab server.
+\item You can open one web-browser tab/window to connect to a graphical RDP desktop session and open additional tabs/windows to connect to SSH terminal sessions concurrently. However, the \textit{Apache Guacamole} system cannot guarantee that your RDP desktop session and your SSH terminal session(s) will connect to the same remote cslab-node.
 \end{itemize}
 
 %------------------------------------------------
 
-\question{How do I access the cslab Linux environment on port 22 via an SSH client?}\label{ssh client}
+\question{How do I access the cslab Linux environment on port 22 via an SSH client?}\label{ssh_client}
 
-\textbf{Please only connect directly into the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the \textit{Guacamole} web-browser interface as discussed above.}
+\textbf{Please only connect directly into the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the \hyperref[guac_login]{\textit{Guacamole} web-browser interface}.}
 
 \subsection*{Using \textit{OpenSSH} client on Linux or Mac OSX:}
 \begin{enumerate}
-  \item Add the following host entry into your \texttt{ $\sim$/.ssh/config} file:
+  \item Add the following host entry into your local user \texttt{ $\sim$/.ssh/config} file:
 \end{enumerate}
+
 \begin{verbatim}
 Host cslab cslab-last cslab.cs.wichita.edu cslab-last.cs.wichita.edu
   ProxyCommand ssh your_mywsu_id@cslab-bastion.cs.wichita.edu ballast %h
@@ -220,19 +225,18 @@ Host cslab cslab-last cslab.cs.wichita.edu cslab-last.cs.wichita.edu
 \end{verbatim}
 \begin{enumerate}
 \setcounter{enumi}{1}
-\item In a local CLI terminal connect to the cslab remote environment by typing
+\item In a local CLI terminal connect to the cslab Linux environment by typing
 \begin{verbatim}
 ssh cslab
 \end{verbatim}
 \item The first time you connect to the cslab environment using SSH, you will be asked to confirm the authenticity of each SSH remote host, i.e.
 \begin{verbatim}
 The authenticity of host 'cslab.cs.wichita.edu' can't be established.
-ECDSA key fingerprint is
-SHA256:X6dBKj4sqYYPWol6MXSQvGhpIQ6qBxh7mBQhnSw8n64.
+ECDSA key fingerprint is [SHA256 hash value].
 Are you sure you want to continue connecting (yes/no)?
 \end{verbatim}
 
-Make sure the cslab-bastion and cslab host key fingerprints match one of the following before typing yes:
+Ensure the cslab-bastion and cslab host key fingerprints match one of the following before typing yes:
 \begin{verbatim}
 RSA key fingerprint is
 SHA256:0CUyGZAYMdOd8vTOK3AtM2XTX3lMaGA2NP73rR7s6Ns.
@@ -242,20 +246,57 @@ ECDSA key fingerprint is
 SHA256:X6dBKj4sqYYPWol6MXSQvGhpIQ6qBxh7mBQhnSw8n64.
 \end{verbatim}
 
-\item When prompted, enter your myWSU password. You will be prompted twice, once for the cslab-bastion (SSH jumphost) and once for the cslab.
+\item You will be prompted twice to enter your myWSU password, once for the cslab-bastion (SSH jumphost) and once for the cslab-node.
 \item If the SSH connection completed successfully, then you will be presented with a standard shell prompt:
-\begin{verbatim}
-your_my_wsuid@cslab-node-#:~$
-\end{verbatim}
+
+\texttt{your\_my\_wsuid@cslab-node-\#:$\sim$\$}
 \end{enumerate}
+
+\textbf{NOTE: If you are accessing cslab via SSH on WSU campus, ensure you are connected to ``WSU Secure'' wireless network or using an Ethernet connected computer. ``WSU Guest'' wireless network prohibits port 22 connections and will fail to connect.}
+
+
+%------------------------------------------------
+
+\question{How do I use graphical (GUI) applications in cslab via an SSH client?}\label{x11_forwarding}
+
+\subsection*{Using \textit{OpenSSH} client with X11 forwarding on Linux or Mac OSX:}
+\begin{itemize}
+\item Ensure you have followed the directions in \hyperref[ssh_client]{using \textit{OpenSSH} client} first.
+\item SSH allows for graphical applications to run on a local computer from the remote cslab Linux environment using X11 forwarding.
+\item To use X11 forwarding on a per session basis append the \texttt{-X} option flag to your SSH command, i.e.
+\begin{verbatim}
+ssh -X cslab
+\end{verbatim}
+\item To always use X11 forwarding for connections to cslab, instead of using the \texttt{-X} option flag, add the following line to the \texttt{Host cslab cslab-last} entry in your \texttt{ $\sim$/.ssh/config} file:
+\begin{verbatim}
+  ForwardX11 yes
+\end{verbatim}
+\item If you are using Mac OSX, then you may need to install XQuartz before using X11 forwarding. Download \href{https://www.xquartz.org}{XQuartz for Mac} and install the software package.
+\end{itemize} 
+
+%------------------------------------------------
+
+\question{How do I copy files from/to the cslab Linux environment via an SSH client?}\label{scp_copying}
+
+\subsection*{Using \textit{OpenSSH} client on Linux or Mac OSX:}
+\begin{itemize}
+\item Ensure you have followed the directions in \hyperref[ssh_client]{using \textit{OpenSSH} client} first.
+\item To copy a file from your local computer to your user home directory on cslab using Secure Copy (SCP), type
+
+\texttt{scp local\_filename\_or\_path cslab:$\sim$}
+
+\item To copy a file from your user home directory on cslab to a local directory on your local computer, type
+
+\texttt{scp cslab:$\sim$/remote\_filename\_or\_path local\_directory}
+\end{itemize}
 
 %------------------------------------------------
 
 \question{How do I access the last accessed cslab-node via an SSH client?}\label{ssh -last}
 
 \begin{itemize}
-\item When connecting to the cslab remote Linux environment using \texttt{ssh cslab}, the ballast load-balancer will redirect you to one of the least used cslab-nodes at time of connection. Since load-balancing is calculated by the ballast system on a one minute cycle, you may not be redirected to the same cslab-node the next time you create an SSH connection into cslab.
-\item To connect to the last cslab-node you previously accessed via the load-balancer, you can append \texttt{-last} to the ssh command, i.e
+\item When connecting to the cslab Linux environment using \texttt{ssh cslab}, the ballast load-balancer will redirect you to one of the least used cslab-nodes at time of connection. Since load-balancing is calculated by ballast on a one minute cycle, you may not be redirected to the same cslab-node the next time you connect into cslab via SSH.
+\item To connect to the last cslab-node you previously accessed via the load-balancer, you can append \texttt{-last} to the SSH command, i.e
 \begin{verbatim}
 ssh cslab-last
 \end{verbatim}
