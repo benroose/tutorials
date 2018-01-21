@@ -1,4 +1,10 @@
-\contentsline {questions}{How do I access the cslab Linux environment via a web-browser?}{1}{section*.1}
-\contentsline {questions}{What software is available within the cslab Linux environment?}{3}{section*.3}
-\contentsline {questions}{How do I copy text within the remote cslab Linux environment? }{3}{section*.5}
-\contentsline {questions}{How do I download/upload files within the cslab Linux environment? }{4}{section*.9}
+\contentsline {questions}{How do I access the cslab Linux environment via a web-browser?}{2}{section*.1}
+\contentsline {questions}{What software is available within the cslab Linux environment?}{3}{section*.5}
+\contentsline {questions}{How do I copy text within the cslab Linux environment? }{4}{section*.7}
+\contentsline {questions}{How do I download/upload files within the cslab Linux environment? }{5}{section*.11}
+\contentsline {questions}{Can I open multiple browser tabs/windows into the cslab Linux environment? }{6}{section*.16}
+\contentsline {questions}{How do I access the cslab Linux environment on port 22 via an SSH client?}{7}{section*.18}
+\contentsline {questions}{How do I use graphical (GUI) applications in cslab via an SSH client?}{10}{section*.23}
+\contentsline {questions}{How do I copy files from/to the cslab Linux environment via an SSH client?}{10}{section*.26}
+\contentsline {questions}{How do I access the last accessed cslab-node via an SSH client?}{11}{section*.29}
+\contentsline {questions}{What are the currently known bugs/glitches within the cslab Linux environment?}{12}{section*.33}

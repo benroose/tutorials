@@ -17,7 +17,8 @@
 
 \documentclass[12pt]{article}
 
-\usepackage{graphicx} %Allow import of images
+\usepackage{graphicx} % Allow import of images
+\usepackage{subcaption} % Required for side-by-side sub figures
 \graphicspath{ {images/} } % Relative path to images directory
 \usepackage[margin=1in]{geometry} % Required to make the margins smaller to fit more content on each page
 \usepackage[linkcolor=blue]{hyperref} % Required to create hyperlinks to questions from elsewhere in the document
@@ -40,7 +41,7 @@
 \newcommand{\question}[1] % This is what you will use to create a new question
 {
 \refstepcounter{questions} % Increases the questions counter, this can be referenced anywhere with \thequestions
-\hfill
+%\hfill
 \goodbreak
 \par\noindent % Creates a new unindented paragraph
 \phantomsection % Needed for hyperref compatibility with the \addcontensline command
@@ -99,17 +100,17 @@
 
 \item During your initial connection into an RDP desktop session, occasionally you may see a policykit error message pop-up window. This is a known software bug which is being worked on. Clicking the OK button will close the error and it should not affect the rest of your login session.
 \item To open/close the \textit{Guacamole} menu sidebar while in the cslab environment press the key combination \textbf{Ctrl+Alt+Shift}. The \textit{Guacamole} menu sidebar enables you to log out, disconnect, change settings, upload/download files, and use a remote clipboard.
-\item For further help on using the \textit{Guacamole} interface go to \href{https://guacamole.incubator.apache.org/doc/gug/using-guacamole.html}{Using Guacamole Guide}
-\end{enumerate}
-\textbf{NOTE: When you finish your work session, please make sure to logout from your connection within the cslab environment:
+\item \textbf{When you finish your work session, please make sure to logout from your connection within the cslab environment:
 \begin{itemize}
 \item by using the \textit{Guacamole} menu sidebar,
 \item by using the [logout] menu item or [logout] taskbar button within the RDP desktop session, or
 \item by typing \texttt{exit} or pressing \textbf{Ctl+D} within the SSH terminal session.
 \end{itemize}}
+\item \textbf{NOTE: All cslab-nodes automatically reboot every night between 2am and 3am. Any programs/processes left running will be killed during the reboot cycle.} 
+\item For further help on using the \textit{Guacamole} interface go to \href{https://guacamole.incubator.apache.org/doc/gug/using-guacamole.html}{Using Guacamole Guide}
+\end{enumerate}
 
 %------------------------------------------------
-%% \newpage
 
 \question{What software is available within the cslab Linux environment?}\label{cslab_software}
 
@@ -210,7 +211,76 @@ guacctl -s custom_upload_directory
 
 \question{How do I access the cslab Linux environment on port 22 via an SSH client?}\label{ssh_client}
 
-\textbf{Please only connect directly into the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the \hyperref[guac_login]{\textit{Guacamole} web-browser interface}.}
+\begin{itemize}
+\item The cslab-nodes are located inside a virtual private network. These internal nodes are only SSH accessible via the cslab-bastion.cs.wichita.edu jumphost. Any external connection into the cslab environment must proxy connect through the cslab-bastion and the bastion should be used only as an SSH jumphost/proxy.
+
+\item If you are accessing cslab via SSH on WSU campus, ensure you are connected wirelessly to ``WSU Secure'' or using an Ethernet connected computer. ``WSU Guest'' wireless prohibits port 22 connections and your SSH session will fail to connect.
+
+\item \textbf{Please only connect into the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the \hyperref[guac_login]{\textit{Guacamole} web-browser interface}.}
+\end{itemize}
+  
+\subsection*{Using \textit{PuTTY} SSH client on Microsoft Windows:}
+\begin{enumerate}
+%% \item You can download pre-configured \textit{PuTTY} session and host key configurations for importing into your Windows registry from this link.
+
+\item Download \textit{PuTTY} from \href{https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html}{Simon Tatham's official download webpage} and install.
+\item Open \textit{PuTTY} and in [Session] category add a new SSH connection with \break [Host Name] as \texttt{cslab-bastion.cs.wichita.edu} and [Port] as \texttt{22}.
+
+\item In [Connection--Data] category add your myWSU\_ID into [Auto-login username].
+\item In [Connection--SSH] category add the text \texttt{ssh cslab} into [Remote command].
+\item In [Session] category add a name for the configuration, such as ``cslab environment'' and click \textit{Save}. Saving as ``Default Settings'' will always open with this configuration.
+
+\begin{figure}[bh!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{putty_cslab_bastion_session}
+  %% \caption{A subfigure}
+  \label{fig:sub1}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{putty_cslab_auto_login_username}
+  %% \caption{A subfigure}
+  \label{fig:sub2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{putty_cslab_ssh_remote_command}
+  %% \caption{A subfigure}
+  \label{fig:sub3}
+\end{subfigure}%
+\caption{\textit{PuTTY} configuration for cslab}
+\label{fig:putty_config}
+\end{figure}
+
+
+\item The first time you connect to the cslab environment using SSH, you will be asked to confirm the authenticity of each SSH remote host.
+\item Ensure the cslab-bastion and cslab host key fingerprints match one of the following SHA256 or MD5 hashes before clicking \textit{Yes}:
+\begin{verbatim}
+ECDSA key fingerprint is
+SHA256:X6dBKj4sqYYPWol6MXSQvGhpIQ6qBxh7mBQhnSw8n64
+MD5:d8:ba:c6:1c:86:fa:7f:f6:92:4f:c1:02:30:ce:ab:99
+
+ED25519 key fingerprint is
+SHA256:zzozIV7cP1T9C77PLRaevzdzCu21k44lbjd8jaJKS8Q
+MD5:6d:3d:8e:3a:db:f6:de:33:af:77:01:40:f3:71:1d:14
+
+RSA key fingerprint is
+SHA256:0CUyGZAYMdOd8vTOK3AtM2XTX3lMaGA2NP73rR7s6Ns
+MD5:75:5a:16:53:1a:7c:c2:4b:99:66:2d:e3:1e:76:f9:c9
+
+DSA key fingerprint is
+SHA256:7zW122xr+aoBb5yiRI96nvdx8Ml07qLKHYwG2Wu6jIM
+MD5:27:59:53:18:5a:67:71:f6:32:f1:e1:15:e9:e5:fe:b1
+\end{verbatim}
+
+\item You will be prompted twice to enter your myWSU password, once for the cslab-bastion (SSH jumphost/proxy) and once for the internal cslab-node.
+\item You may see a \texttt{Could not chdir to home directory....} warning. Do not be concerned, this is not a critical error.
+\item If the SSH connection completed successfully, then you will be presented with a standard shell prompt:
+
+\texttt{your\_mywsu\_id@cslab-node-\#:$\sim$\$}
+\end{enumerate}
 
 \subsection*{Using \textit{OpenSSH} client on Linux or Mac OSX:}
 \begin{enumerate}
@@ -232,32 +302,44 @@ ssh cslab
 \item The first time you connect to the cslab environment using SSH, you will be asked to confirm the authenticity of each SSH remote host, i.e.
 \begin{verbatim}
 The authenticity of host 'cslab.cs.wichita.edu' can't be established.
-ECDSA key fingerprint is [SHA256 hash value].
+ECDSA key fingerprint is [SHA256 or MD5 hash value].
 Are you sure you want to continue connecting (yes/no)?
 \end{verbatim}
 
-Ensure the cslab-bastion and cslab host key fingerprints match one of the following before typing yes:
+%\break
+\item Ensure the cslab-bastion and cslab host key fingerprints match one of the following SHA256 and MD5 hashes before typing \texttt{yes}:
 \begin{verbatim}
-RSA key fingerprint is
-SHA256:0CUyGZAYMdOd8vTOK3AtM2XTX3lMaGA2NP73rR7s6Ns.
-DSA key fingerprint is
-SHA256:7zW122xr+aoBb5yiRI96nvdx8Ml07qLKHYwG2Wu6jIM.
 ECDSA key fingerprint is
-SHA256:X6dBKj4sqYYPWol6MXSQvGhpIQ6qBxh7mBQhnSw8n64.
+SHA256:X6dBKj4sqYYPWol6MXSQvGhpIQ6qBxh7mBQhnSw8n64
+MD5:d8:ba:c6:1c:86:fa:7f:f6:92:4f:c1:02:30:ce:ab:99
+
+ed25519 key fingerprint is
+SHA256:zzozIV7cP1T9C77PLRaevzdzCu21k44lbjd8jaJKS8Q
+MD5:6d:3d:8e:3a:db:f6:de:33:af:77:01:40:f3:71:1d:14
+
+RSA key fingerprint is
+SHA256:0CUyGZAYMdOd8vTOK3AtM2XTX3lMaGA2NP73rR7s6Ns
+MD5:75:5a:16:53:1a:7c:c2:4b:99:66:2d:e3:1e:76:f9:c9
+
+DSA key fingerprint is
+SHA256:7zW122xr+aoBb5yiRI96nvdx8Ml07qLKHYwG2Wu6jIM
+MD5:27:59:53:18:5a:67:71:f6:32:f1:e1:15:e9:e5:fe:b1
 \end{verbatim}
 
-\item You will be prompted twice to enter your myWSU password, once for the cslab-bastion (SSH jumphost) and once for the cslab-node.
+\item You will be prompted twice to enter your myWSU password, once for the cslab-bastion (SSH jumphost/proxy) and once for the internal cslab-node.
+\item You may see a \texttt{Could not chdir to home directory....} warning. Do not be concerned, this is not a critical error.
 \item If the SSH connection completed successfully, then you will be presented with a standard shell prompt:
 
-\texttt{your\_my\_wsuid@cslab-node-\#:$\sim$\$}
+\texttt{your\_mywsu\_id@cslab-node-\#:$\sim$\$}
 \end{enumerate}
 
-\textbf{NOTE: If you are accessing cslab via SSH on WSU campus, ensure you are connected to ``WSU Secure'' wireless network or using an Ethernet connected computer. ``WSU Guest'' wireless network prohibits port 22 connections and will fail to connect.}
-
+%% \break
 
 %------------------------------------------------
 
 \question{How do I use graphical (GUI) applications in cslab via an SSH client?}\label{x11_forwarding}
+
+\textbf{Graphical applications cannot currently be accessed in Microsoft Windows using the \textit{PuTTY} SSH client. Please use the \hyperref[guac_login]{\textit{Guacamole} web-browser interface} instead. }
 
 \subsection*{Using \textit{OpenSSH} client with X11 forwarding on Linux or Mac OSX:}
 \begin{itemize}
@@ -267,7 +349,7 @@ SHA256:X6dBKj4sqYYPWol6MXSQvGhpIQ6qBxh7mBQhnSw8n64.
 \begin{verbatim}
 ssh -X cslab
 \end{verbatim}
-\item To always use X11 forwarding for connections to cslab, instead of using the \texttt{-X} option flag, add the following line to the \texttt{Host cslab cslab-last} entry in your \texttt{ $\sim$/.ssh/config} file:
+\item To always use X11 forwarding for connections to cslab, instead of using the \texttt{-X} option flag, add the following line to the \texttt{Host cslab cslab-last....} entry in your \texttt{ $\sim$/.ssh/config} file:
 \begin{verbatim}
   ForwardX11 yes
 \end{verbatim}
@@ -295,13 +377,43 @@ ssh -X cslab
 \question{How do I access the last accessed cslab-node via an SSH client?}\label{ssh -last}
 
 \begin{itemize}
-\item When connecting to the cslab Linux environment using \texttt{ssh cslab}, the ballast load-balancer will redirect you to one of the least used cslab-nodes at time of connection. Since load-balancing is calculated by ballast on a one minute cycle, you may not be redirected to the same cslab-node the next time you connect into cslab via SSH.
-\item To connect to the last cslab-node you previously accessed via the load-balancer, you can append \texttt{-last} to the SSH command, i.e
+\item When connecting to the cslab Linux environment using an SSH client, the ballast load-balancer on cslab-bastion will redirect you to one of the available and least used cslab-nodes at time of connection. Since load-balancing is calculated by ballast on a one minute cycle, you may not be redirected to the same cslab-node the next time you connect into cslab using SSH.
+
+\item \textbf{Use the following instructions to connect to the last used cslab-node only if/when you need access into a previously running SSH connection. For normal use, your best option is always to connect via \texttt{ssh cslab} and let the ballast load-balancer automatically connect to an available node.}
+\end{itemize}
+
+\subsection*{Using \textit{OpenSSH} client on Linux or Mac OSX:}
+\begin{enumerate}
+\item If you need to connect to the last cslab-node you previously accessed using SSH, just append \texttt{-last} to the SSH command, i.e.
 \begin{verbatim}
 ssh cslab-last
 \end{verbatim}
-\item \textbf{NOTE: All cslab-nodes automatically reboot every night between 2am and 3am. Any processes left running on a node will be killed.} 
-\end{itemize} 
+\end{enumerate}
+
+\subsection*{Using \textit{PuTTY} SSH client on Microsoft Windows:}
+\begin{enumerate}
+\item Open \textit{PuTTY} and load the previously created ``cslab environment'' session.
+\item Change [Connections--Data] configuration category [Remote command] entry to \texttt{ssh cslab-last}.
+\item \textit{Save} changed configuration as a new [Session] with a different name, such as ``cslab environment last used node''.
+\item If you need to connect to the last cslab-node you previously accessed using SSH, connect using this newly created \textit{PuTTY} session.
+\end{enumerate}
+
+%------------------------------------------------
+\break
+\question{What are the currently known bugs/glitches within the cslab Linux environment?}\label{known_bugs}
+
+Due to the cslab environment being so new, there are a few software bugs and glitches which you may see at times. Most of these bugs occur during operations that involve the new cslab environment interacting with the older CS servers and functions and are not critical issues.
+
+Known bugs include:
+\begin{itemize}
+  \item A policykit error message pops up when user first logs into a \textit{Guacamole} RDP desktop session if other users are also logged in. This is a minor bug within policykit and can be easily mitigated by clicking \textit{Okay} in the pop-up window.
+  \item When the \textit{handin} command is used in the cslab environment for programming assignment submission it may produce a \texttt{segmentation fault} error. This is caused by the older 32-bit \textit{handin} program running on the cslab 64-bit processor architecture. The error is minor and does not affect submission of student assignments for grading.
+  \item When accessing cslab via an SSH client through the cslab-bastion, a \texttt{Could not chdir to home directory....} warning may be displayed. This is caused by cslab-bastion not having access to user home directories as an SSH connection is established. cslab-bastion is only used as an SSH jumphost to allow for external access into the cslab-nodes, and does not require access to user home directories for this function. The warning can be disregarded.
+  \item Graphical (GUI) applications cannot currently be accessed in Microsoft Windows using the \textit{PuTTY} SSH client. This is due to a limitation with the \textit{PuTTY} client which requires SSH public key authentication for using the cslab-bastion as a secure SSH proxy. Adding public key authentication for SSH access into cslab is planned as a future option. For now, please use the \hyperref[guac_login]{\textit{Guacamole} web-browser interface} when graphical applications are required from a Microsoft Windows computer.
+\end{itemize}
+
+\textbf{If you experience a bug or error when using the cslab Linux environment which stops you from completing your programming assignments, please inform your instructor at your earliest convenience.}
+
 
 %------------------------------------------------
 
