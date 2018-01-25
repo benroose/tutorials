@@ -113,7 +113,7 @@
       \texttt{SHA256: [fingerprint and randomart image]}
       
       \textbf{NOTE: Unless you know how to use custom SSH key files, always use the default filename and path for saving your SSH key.} \break
-      \textbf{You are required to use a passphrase for your SSH key to access grader account.}
+      \textbf{You are required to use a passphrase for your SSH key to access grader accounts.}
     
   \item Download your SSH public key file to your local computer by typing \break
   \texttt{guacget $\sim$/.ssh/id\_rsa.pub}
@@ -124,7 +124,7 @@ Instructor: instructor_of_the_class i.e. Adam Sweeney
 Grader Account: grader_account_as_assigned_to_you, i.e. cs211a
 \end{verbatim}
   \item If you are a grader for more than one programming class, append additional \texttt{Instructor} and \texttt{Grader Account} lines for each class you will be grading.
- \item Once your SSH public key has been added to the grader account \texttt{authorized\_keys} file by the EECS systems adminstrator, you will then have access into the grader account.
+ \item Once your SSH public key has been added to the \texttt{authorized\_keys} for the grader account by the EECS systems adminstrator, you will then have access into it.
 \end{enumerate}
 
 %------------------------------------------------
@@ -135,18 +135,17 @@ Grader Account: grader_account_as_assigned_to_you, i.e. cs211a
   \item If you are connected to an RDP desktop session, open a terminal emulator, i.e. \textit{LXTerminal} or \textit{Terminator}.
   \item To access your assigned grader account type \break
 \texttt{ssh grader\_account@localhost} \break
-(where \texttt{grader\_account} is the class grader account, i.e, \texttt{cs211a}).
-  \item Use standard Linux command-line tools to access, view, and compile student assignments, i.e. \texttt{ls, cd, less, vi, emacs, gcc, g++}.
-  \item You will find each student assignment in the directory \break
+(where \texttt{grader\_account} is the class account, i.e. \texttt{cs211a}).
+  \item Use standard Linux command-line tools to access, view, and compile student assignments. For example: \texttt{ls, cd, less, vi, emacs, gcc, g++}.
+  \item You will find each submitted student assignment in the directory \break
     \texttt{$\sim$/handin/assign/\textit{assignment\_\#}/\textit{student\_myWSU\_ID}/}
   \item If a student submitted an assignment late, you will find it in the directory \break
     \texttt{$\sim$/handin/assign/\textit{assignment\_\#}.late/\textit{student\_myWSU\_ID}/}
   \item To allow for graphical (GUI) applications, such as \textit{geany} or \textit{atom} to be used, add the \texttt{-X} option flag to the \texttt{ssh} command, i.e. \break
 \texttt{ssh -X cs211a@localhost}
-  \item To use a graphical application type the application's name followed by an ampersand (\&) in the terminal emulator, i.e.
-    \texttt{geany \&} \break
+  \item To use a graphical application type the application's name followed by an ampersand (\&) in the terminal emulator. For example: \texttt{geany \&} \break
     
-\textbf{NOTE: The -X option for graphical applications can ONLY be used within an RDP desktop session.}
+\textbf{NOTE: ssh -X option for graphical applications can ONLY be used within an RDP desktop session.}
 \end{enumerate}
 \end{flushleft}
 
