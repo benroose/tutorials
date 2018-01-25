@@ -1,0 +1,156 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tutorial
+% LaTeX Template
+% Version 1.0 (09/27/17)
+%
+% Author:
+% Ben Roose (ben.roose@wichita.edu)
+%
+% Original template author:
+% Adam Glesser (adamglesser@gmail.com)
+% www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+
+\usepackage{graphicx} % Allow import of images
+\usepackage{subcaption} % Required for side-by-side sub figures
+\graphicspath{ {images/} } % Relative path to images directory
+\usepackage[margin=1in]{geometry} % Required to make the margins smaller to fit more content on each page
+\usepackage[linkcolor=blue]{hyperref} % Required to create hyperlinks to questions from elsewhere in the document
+\hypersetup{pdfborder={0 0 0}, colorlinks=true, urlcolor=blue} % Specify a color for hyperlinks
+\usepackage{todonotes} % Required for the boxes that questions appear in
+\usepackage{tocloft} % Required to give customize the table of contents to display questions
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+\usepackage{palatino} % Use the Palatino font
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+% Create and define the list of questions
+\newlistof{questions}{faq}{\large FAQ for grader access to cslab Linux environment}
+% This creates a new table of contents-like environment that will output a file with extension .faq
+\setlength\cftbeforefaqtitleskip{3em} % Adjusts the vertical space between the title and subtitle
+\setlength\cftafterfaqtitleskip{1em} % Adjusts the vertical space between the subtitle and the first question
+\setlength\cftparskip{.3em} % Adjusts the vertical space between questions in the list of questions
+
+% Create the command used for questions
+\newcommand{\question}[1] % This is what you will use to create a new question
+{
+\refstepcounter{questions} % Increases the questions counter, this can be referenced anywhere with \thequestions
+%\hfill
+\goodbreak
+\par\noindent % Creates a new unindented paragraph
+\phantomsection % Needed for hyperref compatibility with the \addcontensline command
+\addcontentsline{faq}{questions}{#1} % Adds the question to the list of questions
+\todo[inline, color=green!40]{\textbf{#1}} % Uses the todonotes package to create a fancy box to put the question
+%\vspace{0.5em} % White space after the question before the start of the answer
+}
+
+% Uncomment the line below to get rid of the trailing dots in the table of contents
+%\renewcommand{\cftdot}{}
+
+% Uncomment the two lines below to get rid of the numbers in the table of contents
+%\let\Contentsline\contentsline
+%\renewcommand\contentsline[3]{\Contentsline{#1}{#2}{}}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE AND LIST OF QUESTIONS
+%----------------------------------------------------------------------------------------
+
+\begin{center}
+\Huge{\bf \emph{EECS Tutorial: Grader access to cslab Linux Environment}} % Main title
+\end{center}
+
+\listofquestions % This prints the subtitle and a list of all of your questions
+\bigskip % Create a gap between list and first question
+
+\newpage % Comment this if you would like your questions and answers to start immediately after table of questions
+
+%----------------------------------------------------------------------------------------
+%	QUESTIONS AND ANSWERS
+%----------------------------------------------------------------------------------------
+\begin{flushleft}
+
+\question{How do I initially log into the cslab Linux environment?}\label{guac_login}
+
+\begin{itemize}
+  \item To access the cslab Linux environment, \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu}, follow the steps as found in the separate \textit{EECS Tutorial: cslab Linux Environment} document using your myWSU ID (with lowercase letters for username) and your myWSU password.
+  \item If you cannot access the cslab environment using your myWSU ID, please contact the EECS systems administrator, \href{mailto:ben.roose@wichita.edu}{ben.roose@wichita.edu}.
+\end{itemize}
+
+%------------------------------------------------
+
+\question{How do I set up an SSH private/public key for accessing a grader account?}\label{ssh_key_gen}
+
+\begin{enumerate}
+  \item Once logged into the cslab environment, open an SSH terminal session.
+  \item Before you generate an SSH key, you can check to see if you have any existing SSH keys in your user account by typing \break
+  \texttt{ls $\sim$/.ssh}
+  \item Check the directory listing to see if you already have a public SSH key. By default, the filenames of the public keys are one of the following:
+\begin{verbatim}
+    id_rsa.pub
+    id_dsa.pub
+    id_ecdsa.pub
+    id_ed25519.pub
+\end{verbatim}
+  \item If you do not have an SSH key or you wish to generate a new one, type \break
+\texttt{ssh-keygen -t rsa -b 4096 -C "your\_mywsu\_id - your\_last\_name"}
+
+\item Follow the prompts in the command-line as your new SSH key is generated:
+  
+      \texttt{Generating public/private rsa key pair.} \break
+      \texttt{Enter file in which to save the key (../id\_rsa):} Press Enter \break
+      \texttt{Enter passphrase:} Enter a passphrase you will remember! \break
+      \texttt{Your identification has been saved in .../.ssh/id\_rsa.} \break
+      \texttt{Your public key has been saved in .../.ssh/id\_rsa.pub.} \break
+      \texttt{The key fingerprint is:} \break
+      \texttt{SHA256: [fingerprint and randomart image]}
+      
+      \textbf{NOTE: Unless you know how to use custom SSH key files, always use the default filename and path for saving your SSH key.} \break
+      \textbf{You are required to use a passphrase for your SSH key to access grader account.}
+    
+  \item Download your SSH public key file to your local computer by typing \break
+  \texttt{guacget $\sim$/.ssh/id\_rsa.pub}
+  \item Attach the downloaded \texttt{id\_rsa.pub} file to an email and send it both to the instructor of the class and to the EECS systems administrator (\href{mailto:ben.roose@wichita.edu}{ben.roose@wichita.edu}) with the following additional details in the email body:
+\begin{verbatim}
+myWSU_ID: your_myWSU_ID, i.e. a123b456
+Instructor: instructor_of_the_class i.e. Adam Sweeney
+Grader Account: grader_account_as_assigned_to_you, i.e. cs211a
+\end{verbatim}
+  \item If you are a grader for more than one programming class, append additional \texttt{Instructor} and \texttt{Grader Account} lines for each class you will be grading.
+ \item Once your SSH public key has been added to the grader account \texttt{authorized\_keys} file by the EECS systems adminstrator, you will then have access into the grader account.
+\end{enumerate}
+
+%------------------------------------------------
+
+\question{How do I access a grader account for grading assignments?}\label{grader_access}
+\begin{enumerate}
+  \item Once logged into the cslab environment, open either an RDP desktop session or an SSH terminal session.
+  \item If you are connected to an RDP desktop session, open a terminal emulator, i.e. \textit{LXTerminal} or \textit{Terminator}.
+  \item To access your assigned grader account type \break
+\texttt{ssh grader\_account@localhost} \break
+(where \texttt{grader\_account} is the class grader account, i.e, \texttt{cs211a}).
+  \item Use standard Linux command-line tools to access, view, and compile student assignments, i.e. \texttt{ls, cd, less, vi, emacs, gcc, g++}.
+  \item You will find each student assignment in the directory \break
+    \texttt{$\sim$/handin/assign/\textit{assignment\_\#}/\textit{student\_myWSU\_ID}/}
+  \item If a student submitted an assignment late, you will find it in the directory \break
+    \texttt{$\sim$/handin/assign/\textit{assignment\_\#}.late/\textit{student\_myWSU\_ID}/}
+  \item To allow for graphical (GUI) applications, such as \textit{geany} or \textit{atom} to be used, add the \texttt{-X} option flag to the \texttt{ssh} command, i.e. \break
+\texttt{ssh -X cs211a@localhost}
+  \item To use a graphical application type the application's name followed by an ampersand (\&) in the terminal emulator, i.e.
+    \texttt{geany \&} \break
+    
+\textbf{NOTE: The -X option for graphical applications can ONLY be used within an RDP desktop session.}
+\end{enumerate}
+\end{flushleft}
+
+
+%------------------------------------------------
+
+\end{document}
