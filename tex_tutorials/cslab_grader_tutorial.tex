@@ -81,7 +81,8 @@
 
 \begin{itemize}
   \item To access the cslab Linux environment, \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu}, follow the steps as found in the separate \textit{EECS Tutorial: cslab Linux Environment} document using your myWSU ID (with lowercase letters for username) and your myWSU password.
-  \item If you cannot access the cslab environment using your myWSU ID, please contact the EECS systems administrator, \href{mailto:ben.roose@wichita.edu}{ben.roose@wichita.edu}.
+  \item If you cannot access the cslab environment, ensure you have changed your myWSU password within the last three months and can access the myWSU main website \href{https://mywsu.wichita.edu}{mywsu.wichita.edu}. If you cannot access the myWSU website, then you will need to change your password before gaining access into the cslab environment.
+  \item If you can access myWSU but cannot access the cslab environment, please contact the EECS systems administrator, \href{mailto:ben.roose@wichita.edu}{ben.roose@wichita.edu}.
 \end{itemize}
 
 %------------------------------------------------
@@ -100,7 +101,7 @@
     id_ed25519.pub
 \end{verbatim}
   \item If you do not have an SSH key or you wish to generate a new one, type \break
-\texttt{ssh-keygen -t rsa -b 4096 -C "your\_mywsu\_id - your\_last\_name"}
+\texttt{ssh-keygen -t rsa -b 4096 -C "your\_mywsu\_id-your\_last\_name"}
 
 \item Follow the prompts in the command-line as your new SSH key is generated:
   
@@ -116,14 +117,15 @@
       \textbf{You are required to use a passphrase for your SSH key to access grader accounts.}
     
   \item Download your SSH public key file to your local computer by typing \break
-  \texttt{guacget $\sim$/.ssh/id\_rsa.pub}
+    \texttt{guacget $\sim$/.ssh/id\_rsa.pub}
+  \item If the \texttt{id\_rsa.pub} file does not download to your local computer via the web-bowser, then you may need to disconnect from the terminal session by pressing CTRL+D and clicking the ``reconnect'' button.
   \item Attach the downloaded \texttt{id\_rsa.pub} file to an email and send it both to the instructor of the class and to the EECS systems administrator (\href{mailto:ben.roose@wichita.edu}{ben.roose@wichita.edu}) with the following additional details in the email body:
 \begin{verbatim}
 myWSU_ID: your_myWSU_ID, i.e. a123b456
 Instructor: instructor_of_the_class i.e. Adam Sweeney
 Grader Account: grader_account_as_assigned_to_you, i.e. cs211a
 \end{verbatim}
-  \item If you are a grader for more than one programming class, append additional \texttt{Instructor} and \texttt{Grader Account} lines for each class you will be grading.
+  \item If you are a grader for more than one programming class, you will only need to generate one SSH key but you will need to append additional \texttt{Instructor} and \texttt{Grader Account} lines for each class you will be grading.
  \item Once your SSH public key has been added to the \texttt{authorized\_keys} for the grader account by the EECS systems adminstrator, you will then have access into it.
 \end{enumerate}
 
@@ -136,7 +138,10 @@ Grader Account: grader_account_as_assigned_to_you, i.e. cs211a
   \item To access your assigned grader account type \break
 \texttt{ssh grader\_account@localhost} \break
 (where \texttt{grader\_account} is the class account, i.e. \texttt{cs211a}).
-  \item Use standard Linux command-line tools to access, view, and compile student assignments. For example: \texttt{ls, cd, less, vi, emacs, gcc, g++}.
+\item Type in your recently created ``passphrase'' when prompted. \break
+  If you are prompted for a ``password'' not a ``passphrase'', then there is something wrong with your SSH key. Double-check you generated an SSH key and contact the EECS systems administrator if you are not able to log into the grader account.
+  \item Once logged into the grader account, you can use standard Linux command-line tools to access, view, and compile student assignments. \break
+    For example: \texttt{ls, cd, less, vi, emacs, gcc, g++}.
   \item You will find each submitted student assignment in the directory \break
     \texttt{$\sim$/handin/assign/\textit{assignment\_\#}/\textit{student\_myWSU\_ID}/}
   \item If a student submitted an assignment late, you will find it in the directory \break
