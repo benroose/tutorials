@@ -36,6 +36,9 @@
 *.pdfsync
 
 ## Auxiliary and intermediate files from other packages:
+# frequently asked questions
+*.faq
+
 # algorithms
 *.alg
 *.loa
@@ -166,6 +169,10 @@ pythontex-files-*/
 TSWLatexianTemp*
 
 ## Editors:
+# Emacs
+*~
+\#*\#
+
 # WinEdt
 *.bak
 *.sav
