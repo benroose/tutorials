@@ -75,7 +75,7 @@
 %----------------------------------------------------------------------------------------
 %	QUESTIONS AND ANSWERS
 %----------------------------------------------------------------------------------------
-
+\begin{flushleft}
 \question{How do I access the cslab Linux environment on port 22 via an SSH client?}\label{ssh_client}
 
 \begin{itemize}
@@ -83,7 +83,7 @@
 
 \item If you are accessing cslab via SSH on WSU campus, ensure you are connected wirelessly to ``WSU Secure'' or using an Ethernet connected computer. ``WSU Guest'' wireless prohibits port 22 connections and your SSH session will fail to connect.
 
-\item \textbf{Please only connect into the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the cslab \textit{Guacamole} web-browser interface.
+\item \textbf{Please only connect into the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the cslab \textit{Guacamole} web-browser interface.}
 \end{itemize}
   
 \subsection*{Using \textit{PuTTY} SSH client on Microsoft Windows:}
@@ -151,10 +151,9 @@ MD5:27:59:53:18:5a:67:71:f6:32:f1:e1:15:e9:e5:fe:b1
 \texttt{your\_mywsu\_id@cslab-node-\#:$\sim$\$}
 \end{enumerate}
 
-\subsection*{Configuring the \textit{OpenSSH} client on Linux or Mac OSX:}
+\subsection*{Configuring \textit{OpenSSH} client on Linux or Mac OSX for use with cslab:}
 \begin{enumerate}
-  \item On your Linux or Mac desktop or laptop computer, add the following host entry into your local user \texttt{ $\sim$/.ssh/config} file: \break
-  (make sure to replace ``your\_mywsu\_id'' with your own 8 character ID number in both \texttt{ProxyCommand} and \texttt{User} lines.)
+  \item On your Linux or Mac desktop/laptop computer, add the following host entry into your local user \texttt{ $\sim$/.ssh/config} file:
 \end{enumerate}
 
 \begin{verbatim}
@@ -164,17 +163,19 @@ Host cslab cslab-last cslab.cs.wichita.edu cslab-last.cs.wichita.edu
   IdentityFile ~/.ssh/cslab_rsa
   HostKeyAlias cslab.cs.wichita.edu
 \end{verbatim}
+(Note: replace ``your\_mywsu\_id'' with your own 8 character ID number in both \texttt{ProxyCommand} and \texttt{User} lines.)
+
 
 \begin{enumerate}
   \setcounter{enumi}{1}
-  \item Open a new command-line terminal emulator window.
-  \item Generate a new SSH public/private key pair for your local user by typing \break
+  \item Open a command-line terminal emulator window and generate a new SSH public/private key pair for your local user by typing \break
   \texttt{ssh-keygen -t rsa -b 4096}
 
   \item Follow the prompts in the command-line as your new SSH key is generated:
   
       \texttt{Generating public/private rsa key pair.} \break
-      \texttt{Enter file in which to save the key (../id\_rsa):} Type \texttt{$\sim$\$/.ssh/cslab\_rsa} and press Enter \break
+      \texttt{Enter file in which to save the key (../id\_rsa):} \break
+      Type \texttt{$\sim$\$/.ssh/cslab\_rsa} and press Enter \break
       \texttt{Enter passphrase:} Enter a passphrase you will remember! \break
       \texttt{Your identification has been saved in .../.ssh/id\_rsa.} \break
       \texttt{Your public key has been saved in .../.ssh/id\_rsa.pub.} \break
@@ -188,16 +189,16 @@ Host cslab cslab-last cslab.cs.wichita.edu cslab-last.cs.wichita.edu
   \item Select all the text displayed within \textit{less}, starting with \texttt{ssh-rsa} and ending with the hostname of your local computer.
   \item Copy the text either by right-clicking on the terminal emulator window and selecting copy or by pressing the key combination \textbf{Ctrl+Shift+C}.
   \item Open a web-browser application and follow the ADDTUTORIALCMD to access \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu}
-  \item Once logged into the cslab \textit{guacamole} web-interface, open a new [cslab\_SSH\_CLI\_terminal] connection.
-  \item
+  \item Once logged into the cslab \textit{guacamole} web-interface, open a [cslab\_SSH\_CLI\_terminal] connection.
   \item Within the cslab SSH terminal session in your browser, open the \textit{Guacamole} menu sidebar by pressing the key combination \textbf{Ctrl+Alt+Shift}.
   \item Paste the copied text to the remote \textit{Guacamole} [Clipboard] field using your preferred method, i.e. \textbf{Ctrl+V}.
   \item Close the \textit{Guacamole} menu sidebar by pressing the key combination \textbf{Ctrl+Alt+Shift}.
-  \item Within the cslab SSH terminal session, open the file \texttt{$\sim$\$/.ssh/authorized\_keys} in the \textit{nano} text editor by typing \break
-  \texttt{nano $\sim$\$/.ssh/authorized\_keys}
+  \item Within the cslab SSH terminal session, open the file \texttt{$\sim$/.ssh/authorized\_keys} by typing \break
+  \texttt{nano $\sim$/.ssh/authorized\_keys}
   \item Paste your locally copied SSH public key into the terminal session by right-clicking on the browser window with your mouse or by pressing the key combination \textbf{Ctrl+Shift+V}.
-  \item Make sure you have a blank line at the end of the text file by pressing \textbf{Enter} after the pasted text.
-  \item Quit \textit{nano} by pressing \textbf{CTRL+X} and follow the prompts at the bottom of the screen to ensure you save the \texttt{$\sim$\$/.ssh/authorized\_keys} file.
+  \item Ensure you have a blank line at end of the text file by pressing \textbf{Enter} after the text.
+  \item Quit \textit{nano} by pressing \textbf{CTRL+X} and follow the prompts at the bottom of the screen to ensure you save the \texttt{$\sim$/.ssh/authorized\_keys} file.
+
     
   \item In a local CLI terminal connect to the cslab Linux environment by typing
 \begin{verbatim}
@@ -321,4 +322,5 @@ Known bugs include:
 
 %------------------------------------------------
 
+\end{flushleft}
 \end{document}
