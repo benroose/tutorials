@@ -6,7 +6,10 @@ Host cslab cslab-last cslab.cs.wichita.edu cslab-last.cs.wichita.edu
   User your_mywsu_id
   IdentityFile  ̃/.ssh/cslab_rsa
   HostKeyAlias cslab.cs.wichita.edu
-
+  
+  # uncomment the line below to always enable X11 forwarding
+  # ForwardX11 yes
+  
 # cslab scp/sftp file transfer
 Host cslab-sftp cslab-sftp.cs.wichita.edu
   HostName cslab-sftp.cs.wichita.edu
