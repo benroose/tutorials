@@ -127,8 +127,8 @@
   \item In the \textit{Save private key} window, browse to a local directory where you wish to securely store your new SSH key and in the \textbf{File name} field enter the name \texttt{cslab\_rsa}. Clicking on \textbf{Save} will store your SSH key to your local computer as the \texttt{cslab\_rsa.ppk} \textit{PuTTY} key file. \textbf{Keep this file safe and private!}
   \item OPTIONAL: If you wish to also store your SSH public key as a simple text file for future reference, then click \textbf{Save public key}, browse to the same directory, and in the \textbf{File name} field enter the name \texttt{cslab\_rsa\_public\_key.txt}
   \item Once you are done with the above steps, exit/close the \textit{PuTTY Key Generator} program.
-  \item Download the \texttt{cslab\_putty\_ssh\_client\_full\_configuration} registry file from \href{https://github.com/benroose/tutorials/tree/master/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}.
-  \item Open this downloaded file from within your web-browser or by double-clicking on the file in your file explorer, and click \textbf{Yes} when asked if you wish to add this new information to your Windows registry. You will not be able to continue configuration of PuTTY until this file has been added into your Windows registry.
+  \item Download the \texttt{cslab\_putty\_ssh\_client\_full\_configuration} registry file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}. You may need to right-click on the file link and select \textbf{Save link as} to download it to your computer.
+  \item Double-click on the downloaded file in your file explorer, and click \textbf{Yes} when asked if you wish to add this new information to your Windows registry. You will not be able to continue configuration of PuTTY until this file has been added into your Windows registry.
   \item Run the \textit{PuTTY} program and you should now see two new \textbf{Saved Sessions} entries in your \textit{PuTTY} Configuration Window listed as \textit{cslab access} and \textit{cslab last node accessed}.
   \item Click on \textit{cslab access} and click on \textbf{Load}. DO NOT click \textbf{Open}.
   \item Click on the \textit{Connection--Data} Category tab on the left of the window and enter your myWSU ID in the \textbf{Auto-login username} field.
@@ -237,7 +237,7 @@
 \begin{itemize}
   \item SSH host keys are essential to securing an SSH connection into a remote server. If you see an incorrect host key, then it may mean a cyber-attacker has attempted to compromise the remote server.
   \item The \texttt{cslab\_putty\_ssh\_client\_full\_configuration} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository} will automatically add the cslab host keys into your Windows registry when you add this file during the initial configuration and set up of \textit{PuTTY}. However, if your configuration lost the host keys for any reason, then it may ask you to confirm the authenticity of cslab hosts when you try to open an SSH connection.
-  \item You can also download the \texttt{cslab\_putty\_ssh\_client\_host\_keys\_only} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository} and re-add the host keys into your Windows registry.
+  \item You can also download the \texttt{cslab\_putty\_ssh\_client\_host\_keys\_only} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository} and re-add the host keys into your Windows registry.
   \item Alternatively, you can manually add SSH host keys to your \textit{PuTTY} Session configurations. When adding new host keys you should always ensure the host key fingerprint is correct. cslab-bastion and cslab host key fingerprints must match one of the following SHA256 or MD5 hashes before you add or accept the host key:
 \begin{verbatim}
 ECDSA key fingerprint is
@@ -285,7 +285,7 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
 
 \begin{enumerate}
   \setcounter{enumi}{1}
-  \item The above text is also available for download in the file \texttt{cslab\_openssh\_client\_config} from \href{https://github.com/benroose/tutorials/tree/master/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}.
+  \item The above text is also available for download in the file \texttt{cslab\_openssh\_client\_config} from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}.
   \item Open a command-line terminal emulator window and generate a new SSH public/private key pair for your local user by typing \break
   \texttt{ssh-keygen -t rsa -b 4096 -f $\sim$/.ssh/cslab\_rsa}
 
