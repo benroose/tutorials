@@ -87,7 +87,7 @@
   \item The cslab-nodes are located inside a virtual private network. These internal nodes are only SSH accessible via the \verb|cslab-bastion.cs.wichita.edu| jumphost. Any external connection into the cslab environment must proxy connect through the \verb|cslab-bastion|.
   \item \verb|cslab-bastion.cs.wichita.edu| and \verb|cslab-sftp.cs.wichita.edu| can be used as SCP or SFTP file-server hosts with SSH clients, such as \textit{OpenSSH}, or graphical SFTP clients, such as \textit{Filezilla}.
   \item This tutorial will help you configure your SSH client to make a proxy connection into cslab via \texttt{cslab-bastion} and to set up SSH public key authentication.
-  \item \textbf{ONLY USE THE CSLAB-BASTION AS A PROXY/JUMPHOST INTO THE CSLAB-NODES OR AS AN SCP/SFTP SERVER. DO NOT DIRECTLY SSH INTO THE CSLAB-BASTION FOR OTHER TASKS!}
+  \item \textbf{ONLY USE CSLAB-BASTION AS A PROXY/JUMPHOST AND CSLAB-SFTP AS AN SCP/SFTP SERVER. DO NOT DIRECTLY SSH INTO CSLAB-BASTION OR CSLAB-SFTP FOR ANY OTHER TASKS!}
 \end{itemize}
 
 %------------------------------------------------
@@ -127,7 +127,7 @@
   \item In the \textit{Save private key} window, browse to a local directory where you wish to securely store your new \textit{PuTTY} SSH key and in the \textbf{File name} field enter the name \verb|cslab_rsa|. Clicking on \textbf{Save} will store your \verb|cslab_rsa.ppk| key file to your local computer. \textbf{Keep this file safe and private!}
   \item OPTIONAL: If you wish to also store your SSH public key as a simple text file for future reference, then click \textbf{Save public key}, browse to the same directory, and in the \textbf{File name} field enter the name \verb|cslab_rsa_public_key.txt|
   \item Once you are done with the above steps, exit/close the \textit{PuTTY Key Generator} program.
-  \item Download the \verb|cslab_putty_ssh_client_full_configuration| registry file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}. You may need to right-click on the file link and select \textbf{Save link as} to download it to your computer.
+  \item Download the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_putty_ssh_client_full_configuration.reg}{cslab\_putty\_ssh\_client\_full\_configuration.reg} registry file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/}{Ben Roose's GitHub tutorials repository}. You may need to right-click on the web-page in your browser and select \textbf{Save as} or \textbf{Save page as}.
   \item Double-click on the downloaded file in your file explorer, and click \textbf{Yes} when asked if you wish to add this new information to your Windows registry. You will not be able to continue configuration of PuTTY until this file has been added into your Windows registry.
   \item Run the \textit{PuTTY} program and you should now see two new \textbf{Saved Sessions} entries in your \textit{PuTTY} Configuration Window listed as \textit{cslab access} and \textit{cslab last node accessed}.
   \item Click on \textit{cslab access} and click on \textbf{Load}. DO NOT click \textbf{Open}.
@@ -179,8 +179,10 @@
   \item When prompted, enter the previously defined passphrase for your key.
   \item OPTIONAL: if you wish to see the SSH keys already added into \textit{Pageant}, right-click on the \textit{Pageant} notification icon and select the menu option \textbf{View keys}.
   \item Right-click on the \textit{Pageant} notification icon and, under the \textbf{Saved Sessions} sub-menu, select \textbf{cslab remote access}.
-  \item If everything is correctly configured, a new \textit{PuTTY} terminal emulator window will open and automatically log you into an available cslab node! You should be presented with a standard shell prompt within the node: \break
-  \verb|your_mywsu_id@cslab-node-#:~$|
+  \item If everything is correctly configured, a \textit{PuTTY} terminal emulator window will open and automatically log you into an available cslab node! You should be presented with the shell prompt: 
+    \verb|your_mywsu_id@cslab-node-#:~$|
+  %%   You should be presented with a standard shell prompt within the node: \break
+  %% \verb|your_mywsu_id@cslab-node-#:~$|
   \item Each time you shutdown or reboot your computer, you will need to manually run \textit{Pageant} and then add your SSH key before you can connect to the cslab environment.
   \item OPTIONAL: You can have \textit{Pageant} run automatically at startup by copying the \textit{Pageant} Start menu shortcut file into your Windows \textbf{Startup} directory.
   \item OPTIONAL: To have your cslab SSH key automatically added into \textit{Pageant} when it runs, open the \textbf{Properties} box for the \textit{Pageant} Start menu shortcut (or the previously created \textbf{Startup} shortcut). In the \textbf{Target} field append the full filepath of your \verb|cslab_rsa.ppk| key file to the end of the \verb|pageant.exe| line, i.e.
@@ -287,14 +289,15 @@
 \newpage
 \question{Why is \textit{PuTTY} or \textit{FileZilla} asking to confirm the authenticity of cslab host keys?}\label{host_keys_windows}
 
-\subsection*{Automatically adding the cslab host keys to your registry for \textit{PuTTY} to use:}
+\subsection*{Automatically adding cslab host keys to your registry for \textit{PuTTY}:}
 \begin{itemize}
   \item SSH host keys are essential to securing an SSH connection into a remote server. If you see an incorrect host key, then it may mean a cyber-attacker has attempted to compromise the remote server.
-  \item The \verb|cslab_putty_ssh_client_full_configuration| file from \href{https://github.com/benroose/tutorials/tree/master/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository} will automatically add the cslab host keys into your Windows registry when you add this file during the initial configuration and set up of \textit{PuTTY}. However, if your configuration loses its cached host keys for any reason, then it may ask you to reconfirm the authenticity of cslab hosts when you try to open an SSH connection.
-  \item You can also download the \verb|cslab_putty_ssh_client_host_keys_only| file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository} and re-add the host keys into your Windows registry.
+  \item The \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_putty_ssh_client_full_configuration.reg}{cslab\_putty\_ssh\_client\_full\_configuration.reg} registry file will automatically add the cslab host keys into your Windows registry during your initial configuration and set up of \textit{PuTTY}. However, if your configuration loses its cached host keys for any reason, then it may ask you to reconfirm the authenticity of cslab hosts when you try to open an SSH connection.
+  \item You can also download the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_putty_ssh_client_host_keys_only.reg}{cslab\_putty\_ssh\_host\_keys\_only.reg} registry file and re-add just the cslab host keys into your Windows registry.
+
 \end{itemize}
 
-\newpage
+%% \newpage
 \subsection*{Manually adding the cslab host keys into \textit{PuTTY} or \textit{FileZilla}:}
 \begin{itemize}
   \item You can manually add SSH host keys to your \textit{PuTTY} and \textit{FileZilla} configurations. When adding new host keys you should always ensure the host key fingerprint is correct. \verb|cslab|, \verb|cslab-bastion|, and \verb|cslab-sftp| host key fingerprints must match one of the following SHA256 or MD5 hashes before you add or accept the host key:
@@ -326,13 +329,13 @@ MD5:27:59:53:18:5a:67:71:f6:32:f1:e1:15:e9:e5:fe:b1
 \begin{enumerate}
   \item Many of the following commands need to be typed into a local command-line terminal, so open a command-line terminal emulator window first.
   \item Install the \texttt{openssh-client} software package using your specific distribution's package management tools if not already installed.
-  \item Download the file \verb|cslab_openssh_client_config| from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}.
+  \item Download the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_openssh_client_config}{cslab\_openssh\_client\_config} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/}{Ben Roose's GitHub tutorials repository}. You may need to right-click on the web-page in your browser and select \textbf{Save as} or \textbf{Save page as}, or you can download this file directly using \verb|wget|
   \item The downloaded cslab configuration can be added into your SSH client config while substituting your own myWSU ID into it by changing into the directory where you downloaded the \verb|cslab_openssh_client_config| file and typing
 \begin{verbatim}
 sed "s/mywsu_placeholder/ENTER_YOUR_OWN_MYWSU_ID_HERE/g" \
  cslab_openssh_client_config >> ~/.ssh/config
 \end{verbatim}
-  \item Alternatively, you can manually copy the following host entry into your local user's \verb|~/.ssh/config| file:
+  \item Alternatively, you can manually copy the following host entries into your local \verb|~/.ssh/config| file:
 \end{enumerate}
 
 \begin{verbatim}
@@ -353,8 +356,8 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
 (Ensure to replace \verb|your_mywsu_id| with your own 8 character myWSU ID number in all three \texttt{ProxyCommand} and \texttt{User} lines.)
 
 \begin{enumerate}
-  \setcounter{enumi}{3}
-  \item The cslab SSH host keys must be then added into your local user's \verb|~/.ssh/known_hosts| file. cslab host keys are available for download in the file \verb|cslab_openssh_known_hosts| from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}.
+  \setcounter{enumi}{5}
+  \item The cslab SSH host keys must be added into your local \verb|~/.ssh/known_hosts| file. Download the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_openssh_known_hosts}{cslab\_openssh\_known\_hosts} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/}{Ben Roose's GitHub tutorials repository}. You can download this file directly using \verb|wget| You may need to right-click on the web-page in your browser and select \textbf{Save as} or \textbf{Save page as}, or you can download this file directly using \verb|wget|
   \item The host keys can be added into your known\_hosts by changing into the directory where you downloaded the \verb|cslab_openssh_known_hosts| file and typing \break
     \verb|cat cslab_openssh_known_hosts >> ~/.ssh/known_hosts|
   \item Generate a new \textit{OpenSSH} public/private key pair for your local user by typing \break
@@ -394,7 +397,7 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
   \item When prompted, enter the passphrase to unlock your local SSH private key.
   \item Connect to the cslab Linux environment by typing \break
     \verb|ssh cslab|
-  \item If everything is correctly configured, you will be automatically connected to an available cslab node! You should be presented with a standard shell prompt within the node: \break
+  \item If everything is correctly configured, you will be automatically connected to an available cslab node! You should be presented with the shell prompt: \break
     \verb|your_mywsu_id@cslab-node-#:~$|
   \item NOTE: Mac OSX and many Linux distributions can run the ssh-agent and unlock SSH keys during user login using a \textit{keychain} program. Check online for specific details on how to store SSH keys in your distribution. If not, then there are many script functions that can be added to your local user \texttt{.bashrc} file for running the ssh-agent at login, such as \href{https://gist.github.com/tstellanova/76ee01c1599d9a9433cf}{tstellanova's start\_ssh\_agent.sh on GitHubGist}.
 \end{enumerate}
@@ -480,12 +483,11 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
 \subsection*{Automatically adding the cslab host keys to your known\_hosts file:}
 \begin{itemize}
   \item SSH host keys are essential to securing an SSH connection into a remote server. If you see an incorrect host key, then it may mean a cyber-attacker has attempted to compromise the remote server. However, if your configuration loses its cached host keys for any reason, then it may ask you to reconfirm the authenticity of cslab hosts when you try to open an SSH connection.
-  \item You can download the file \verb|cslab_openssh_known_hosts| from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}.
-  \item The cslab host keys can then be re-added into your local user's \verb|known_hosts| by changing into the directory where you downloaded the \verb|cslab_openssh_known_hosts| file and typing \break
+  \item You can download the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_openssh_known_hosts}{cslab\_openssh\_known\_hosts} file and re-add the cslab host keys into you local \verb|known_hosts| file by typing \break
     \verb|cat cslab_openssh_known_hosts >> ~/.ssh/known_hosts|
 \end{itemize}
 
-\newpage
+%% \newpage
 \subsection*{Manually adding the cslab host keys into \textit{OpenSSH} or \textit{FileZilla}:}
 \begin{itemize}
 \item If you do not have the cslab host keys in your \verb|known_hosts| file when you initially connect to cslab, you will likely see the following warning:
