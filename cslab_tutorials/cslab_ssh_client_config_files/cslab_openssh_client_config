@@ -4,7 +4,7 @@
 Host cslab cslab-last cslab.cs.wichita.edu cslab-last.cs.wichita.edu
   ProxyCommand ssh your_mywsu_id@cslab-bastion.cs.wichita.edu ballast %h
   User your_mywsu_id
-  IdentityFile  ̃/.ssh/cslab_rsa
+  IdentityFile  $HOME/.ssh/cslab_rsa
   HostKeyAlias cslab.cs.wichita.edu
   
   # uncomment the line below to always enable X11 forwarding
@@ -14,5 +14,5 @@ Host cslab cslab-last cslab.cs.wichita.edu cslab-last.cs.wichita.edu
 Host cslab-sftp cslab-sftp.cs.wichita.edu
   HostName cslab-sftp.cs.wichita.edu
   User your_mywsu_id
-  IdentityFile  ̃/.ssh/cslab_rsa
+  IdentityFile  $HOME/.ssh/cslab_rsa
   HostKeyAlias cslab.cs.wichita.edu
