@@ -81,12 +81,12 @@
 
 \question{General Information regarding accessing cslab Linux environment using SSH}\label{ssh_client_linux}
 \begin{itemize}
-  \item \textbf{Please only connect into the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the cslab \textit{Guacamole} web-browser interface.}
+  \item \textbf{Only connect to the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the cslab web-browser interface at \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu}.}
   \item SSH uses network port 22. If you are accessing cslab via SSH on WSU campus, ensure you are connected wirelessly to \textit{WSU Secure} or using an Ethernet connected computer. \textit{WSU Guest} wireless prohibits port 22 connections and your SSH session will fail to connect.
   \item You can only access cslab using SSH public key authentication. You cannot access cslab over SSH using your myWSU password.
-  \item The cslab-nodes are located inside a virtual private network. These internal nodes are only SSH accessible via the \verb|cslab-bastion.cs.wichita.edu| jumphost. Any external connection into the cslab environment must proxy connect through the \verb|cslab-bastion|.
-  \item \verb|cslab-bastion.cs.wichita.edu| and \verb|cslab-sftp.cs.wichita.edu| can be used as SCP or SFTP file-server hosts with SSH clients, such as \textit{OpenSSH}, or graphical SFTP clients, such as \textit{Filezilla}.
-  \item This tutorial will help you configure your SSH client to make a proxy connection into cslab via \texttt{cslab-bastion} and to set up SSH public key authentication.
+  \item The cslab-nodes are located inside a virtual private network. These internal nodes are only SSH accessible via the \verb|cslab-bastion.cs.wichita.edu| proxy host. Any external connection into the cslab environment must first proxy connect through the \verb|cslab-bastion|.
+  \item \verb|cslab-sftp.cs.wichita.edu| can be used as a secure file transfer host with command-line SSH clients, such as \textit{PSFTP} or \textit{SFTP}, and graphical SFTP clients, such as \textit{Filezilla}.
+  \item This tutorial will help you configure your SSH and SFTP clients for access into cslab using SSH public key authentication via a proxy host.
   \item \textbf{ONLY USE CSLAB-BASTION AS A PROXY/JUMPHOST AND CSLAB-SFTP AS AN SCP/SFTP SERVER. DO NOT DIRECTLY SSH INTO CSLAB-BASTION OR CSLAB-SFTP FOR ANY OTHER TASKS!}
 \end{itemize}
 
@@ -136,7 +136,7 @@
   \item Click on the \textit{Session} Category tab on the left of the window and click on \textbf{Save}. DO NOT click \textbf{Open}.
   \item Perform the last 4 steps again for the \textit{cslab last node accessed} entry.
   \item Once you are done with the above steps, exit/close the \textit{PuTTY} program.
-  \item Congratulations! You have now configured your local Windows computer to directly access cslab via \textit{PuTTY}. However, you will need to add your new SSH key to the \textit{Pageant (PuTTY Authentication agent)} prior to logging into cslab. Running \textit{Pageant} and adding your SSH key will be explained in the next section!
+  \item Congratulations! You have now configured your local Windows computer to directly access cslab with \textit{PuTTY}. However, you will need to add your new SSH key to the \textit{Pageant (PuTTY Authentication agent)} prior to logging into cslab. Running \textit{Pageant} and adding your SSH key will be explained in the next section.
 \end{enumerate}
 
 \begin{figure}[bh!]
@@ -170,7 +170,7 @@
 \end{figure}
 
 \newpage
-\subsection*{Logging into cslab using the \textit{PuTTY Pageant} client:}
+\subsection*{Logging into cslab using the \textit{Pageant} agent:}
 \begin{enumerate}
   \item Run the \textit{Pageant (PuTTY Authentication agent)}, listed in your start menu as \textit{Pageant}.
   \item On the far right of your Windows taskbar, you should see a new notification icon for the running \textit{Pageant} program.
@@ -382,7 +382,7 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
   \item Ensure correct permissions are set on the \verb|authorized_keys| file by typing \break
     \verb|chmod 600 ~/.ssh/authorized_keys|
   \item NOTE: If you wish to set up more than one local computer with different SSH keys for accessing cslab, then you can append additional SSH public keys in your cslab user \verb|authorized_keys| file. Make sure to remove no longer used SSH public keys from this file.
-  \item Congratulations! You have now configured your local Linux or Mac computer to directly access cslab via \textit{OpenSSH}. Make sure to properly disconnect and log out of the cslab \textit{guacamole} web-interface once you are done with the above steps.
+  \item Congratulations! You have now configured your local Linux or Mac computer to directly access cslab with \textit{OpenSSH}. Make sure to properly disconnect and log out of the cslab \textit{guacamole} web-interface once you are done with the above steps.
 \end{enumerate}
 
 %% \newpage
