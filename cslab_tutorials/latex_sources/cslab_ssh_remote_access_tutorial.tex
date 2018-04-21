@@ -27,6 +27,8 @@
 \usepackage{tocloft} % Required to give customize the table of contents to display questions
 \usepackage{microtype} % Slightly tweak font spacing for aesthetics
 \usepackage{palatino} % Use the Palatino font
+\usepackage{listings} % Required for Bash command lines
+\usepackage[T1]{fontenc} % Properly formats tildes (~) for command-line use
 
 \setlength\parindent{0pt} % Removes all indentation from paragraphs
 
@@ -70,7 +72,7 @@
 \listofquestions % This prints the subtitle and a list of all of your questions
 \bigskip % Create a gap between list and first question
 
-\newpage % Comment this if you would like your questions and answers to start immediately after table of questions
+%% \newpage % Comment this if you would like your questions and answers to start immediately after table of questions
 
 %----------------------------------------------------------------------------------------
 %	QUESTIONS AND ANSWERS
@@ -80,10 +82,10 @@
 \question{General Information regarding accessing cslab Linux environment using SSH}\label{ssh_client_linux}
 \begin{itemize}
   \item \textbf{Please only connect into the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the cslab \textit{Guacamole} web-browser interface.}
-  \item SSH uses network port 22. If you are accessing cslab via SSH on WSU campus, ensure you are connected wirelessly to ``WSU Secure'' or using an Ethernet connected computer. ``WSU Guest'' wireless prohibits port 22 connections and your SSH session will fail to connect.
+  \item SSH uses network port 22. If you are accessing cslab via SSH on WSU campus, ensure you are connected wirelessly to \textit{WSU Secure} or using an Ethernet connected computer. \textit{WSU Guest} wireless prohibits port 22 connections and your SSH session will fail to connect.
   \item You can only access cslab using SSH public key authentication. You cannot access cslab over SSH using your myWSU password.
-  \item The cslab-nodes are located inside a virtual private network. These internal nodes are only SSH accessible via the \texttt{cslab-bastion.cs.wichita.edu} jumphost. Any external connection into the cslab environment must proxy connect through the \texttt{cslab-bastion}.
-  \item \texttt{cslab-bastion.cs.wichita.edu} and \texttt{cslab-sftp.cs.wichita.edu} can be used as SCP or SFTP file-server hosts with SSH clients, such as \textit{OpenSSH}, or graphical SFTP clients, such as \textit{Filezilla}.
+  \item The cslab-nodes are located inside a virtual private network. These internal nodes are only SSH accessible via the \verb|cslab-bastion.cs.wichita.edu| jumphost. Any external connection into the cslab environment must proxy connect through the \verb|cslab-bastion|.
+  \item \verb|cslab-bastion.cs.wichita.edu| and \verb|cslab-sftp.cs.wichita.edu| can be used as SCP or SFTP file-server hosts with SSH clients, such as \textit{OpenSSH}, or graphical SFTP clients, such as \textit{Filezilla}.
   \item This tutorial will help you configure your SSH client to make a proxy connection into cslab via \texttt{cslab-bastion} and to set up SSH public key authentication.
   \item \textbf{ONLY USE THE CSLAB-BASTION AS A PROXY/JUMPHOST INTO THE CSLAB-NODES OR AS AN SCP/SFTP SERVER. DO NOT DIRECTLY SSH INTO THE CSLAB-BASTION FOR OTHER TASKS!}
 \end{itemize}
@@ -94,40 +96,38 @@
   
 \subsection*{Configuring the \textit{PuTTY} SSH client for cslab access:}
 \begin{enumerate}
-%% \item You can download pre-configured \textit{PuTTY} session and host key configurations for importing into your Windows registry from this link.
-
   \item Download the full \textit{PuTTY} package from \href{https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html}{Simon Tatham's official download page} and install all \textit{PuTTY} utilities on your local Windows computer. You cannot connect to cslab with just the \textit{PuTTY} client.
   \item Run the \textit{PuTTY Key Generator}, which is listed in your start menu as \textit{PuTTYgen}.
   \item In the \textit{PuTTY Key Generator} window, generate a new RSA key with 4096 bits. You may need to change the settings at bottom of window before clicking \textbf{Generate}.
   \item Follow the prompts to create randomness and generate your \textit{PuTTY} key.
   \item Once your key has been generated, change the following fields:
     \begin{itemize}
-    \item Key comment: \texttt{your\_mywsu\_id@your\_local\_computer\_name}
-    \item Key passphrase: \texttt{choose\_passphrase\_you\_will\_remember}
-    \item Confirm passphrase: \texttt{same\_passphrase\_as\_above}
+    \item Key comment: \verb|your_mywsu_id@your_local_computer_name|
+    \item Key passphrase: \verb|choose_passphrase_you_will_remember|
+    \item Confirm passphrase: \verb|same_passphrase_as_above|
     \end{itemize}
     \textbf{It is highly recommended to use a passphrase for your new key to keep your Linux user account secure.}
   \item Select all the text displayed within the box titled \textit{Public key for pasting into OpenSSH authorized\_keys file}, starting with \texttt{ssh-rsa} and ending with name of your computer.
   \item Copy the selected text either by right-clicking within the same box and selecting [copy] or by pressing the key combination \textbf{Ctrl+C}.
   \item Open a web-browser application and follow the \textit{eecs\_tutorial\_cslab\_web\_access} document to access \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu}
-  \item Once logged into \textit{guacamole}, open a [cslab\_SSH\_CLI\_terminal] connection.
+  \item Once logged into \textit{guacamole}, open a \textbf{cslab\_SSH\_CLI\_terminal} connection.
   \item Within the cslab SSH terminal session in your browser, open the \textit{Guacamole} menu sidebar by pressing the key combination \textbf{Ctrl+Alt+Shift}.
   \item Paste the copied text to the remote \textit{Guacamole} \textbf{Clipboard} field using your preferred method, i.e. \textbf{Ctrl+V}.
   \item Close the \textit{Guacamole} menu sidebar by pressing the key combination \textbf{Ctrl+Alt+Shift}.
-  \item Within the cslab SSH terminal session, open your \texttt{authorized\_keys} file by typing \break
-  \texttt{nano $\sim$/.ssh/authorized\_keys}
+  \item Within the cslab SSH terminal session, open your \verb|authorized_keys| file by typing \break
+    \verb|nano ~/.ssh/authorized_keys|
   \item Paste your locally copied \textit{PuTTY} SSH public key into the terminal session by right-clicking on the browser window with your mouse or by pressing the key combination \textbf{Ctrl+Shift+V}.
   \item Ensure you have a blank line at end of the text file by pressing \textbf{Enter} if required.
-  \item Quit \textit{nano} by pressing \textbf{CTRL+X} and follow the prompts at the bottom of the screen to ensure you save the \texttt{authorized\_keys} file.
-  \item Ensure correct permissions are set on the \texttt{authorized\_keys} file by typing \break
-  \texttt{chmod 600 $\sim$/.ssh/authorized\_keys}
-  \item NOTE: If you wish to set up more than one local computer with different SSH keys for accessing cslab, then you can append additional SSH public keys in your cslab user \texttt{authorized\_keys} file. Make sure to remove no longer used SSH public keys from this file.
+  \item Quit \textit{nano} by pressing \textbf{CTRL+X} and follow the prompts at the bottom of the screen to ensure you save the \verb|authorized_keys| file.
+  \item Ensure correct permissions are set on the \verb|authorized_keys| file by typing \break
+    \verb|chmod 600 ~/.ssh/authorized_keys|
+  \item NOTE: If you wish to set up more than one local computer with different SSH keys for accessing cslab, then you can append additional SSH public keys in your cslab user \verb|authorized_keys| file. Make sure to remove no longer used SSH public keys from this file.
   \item Once you are done with the above steps, make sure to properly disconnect and log out of the cslab \textit{guacamole} web-interface.
   \item Back in the \textit{PuTTY Key Generator} window, click \textbf{Save private key}.
-  \item In the \textit{Save private key} window, browse to a local directory where you wish to securely store your new \textit{PuTTY} SSH key and in the \textbf{File name} field enter the name \texttt{cslab\_rsa}. Clicking on \textbf{Save} will store your \texttt{cslab\_rsa.ppk} key file to your local computer. \textbf{Keep this file safe and private!}
-  \item OPTIONAL: If you wish to also store your SSH public key as a simple text file for future reference, then click \textbf{Save public key}, browse to the same directory, and in the \textbf{File name} field enter the name \texttt{cslab\_rsa\_public\_key.txt}
+  \item In the \textit{Save private key} window, browse to a local directory where you wish to securely store your new \textit{PuTTY} SSH key and in the \textbf{File name} field enter the name \verb|cslab_rsa|. Clicking on \textbf{Save} will store your \verb|cslab_rsa.ppk| key file to your local computer. \textbf{Keep this file safe and private!}
+  \item OPTIONAL: If you wish to also store your SSH public key as a simple text file for future reference, then click \textbf{Save public key}, browse to the same directory, and in the \textbf{File name} field enter the name \verb|cslab_rsa_public_key.txt|
   \item Once you are done with the above steps, exit/close the \textit{PuTTY Key Generator} program.
-  \item Download the \texttt{cslab\_putty\_ssh\_client\_full\_configuration} registry file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}. You may need to right-click on the file link and select \textbf{Save link as} to download it to your computer.
+  \item Download the \verb|cslab_putty_ssh_client_full_configuration| registry file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}. You may need to right-click on the file link and select \textbf{Save link as} to download it to your computer.
   \item Double-click on the downloaded file in your file explorer, and click \textbf{Yes} when asked if you wish to add this new information to your Windows registry. You will not be able to continue configuration of PuTTY until this file has been added into your Windows registry.
   \item Run the \textit{PuTTY} program and you should now see two new \textbf{Saved Sessions} entries in your \textit{PuTTY} Configuration Window listed as \textit{cslab access} and \textit{cslab last node accessed}.
   \item Click on \textit{cslab access} and click on \textbf{Load}. DO NOT click \textbf{Open}.
@@ -175,14 +175,14 @@
   \item Run the \textit{Pageant (PuTTY Authentication agent)}, listed in your start menu as \textit{Pageant}.
   \item On the far right of your Windows taskbar, you should see a new notification icon for the running \textit{Pageant} program.
   \item Right-click on the \textit{Pageant} notification icon and select the menu option \textbf{Add key}.
-  \item In the \textit{Select private Key File} window, browse to the local directory with your stored \texttt{cslab\_rsa.ppk} file. Select the \texttt{cslab\_rsa} key file and click on \textbf{Open}.
+  \item In the \textit{Select private Key File} window, browse to the local directory with your stored \verb|cslab_rsa.ppk| file. Select the \texttt{cslab\_rsa} key file and click on \textbf{Open}.
   \item When prompted, enter the previously defined passphrase for your key.
   \item OPTIONAL: if you wish to see the SSH keys already added into \textit{Pageant}, right-click on the \textit{Pageant} notification icon and select the menu option \textbf{View keys}.
   \item Right-click on the \textit{Pageant} notification icon and, under the \textbf{Saved Sessions} sub-menu, select \textbf{cslab remote access}.
   \item If everything is correctly configured, a new \textit{PuTTY} terminal emulator window will open and automatically log you into an available cslab node!
   \item Each time you shutdown or reboot your computer, you will need to manually run \textit{Pageant} and then add your SSH key before you can connect to the cslab environment.
   \item OPTIONAL: You can have \textit{Pageant} run automatically at startup by copying the \textit{Pageant} Start menu shortcut file into your Windows \textbf{Startup} directory.
-  \item OPTIONAL: To have your cslab SSH key automatically added into \textit{Pageant} when it runs, open the \textbf{Properties} box for the \textit{Pageant} Start menu shortcut (or the \textbf{Startup} shortcut). In the \textbf{Target} field enter the full filepath of your \texttt{cslab\_rsa.ppk} key file to the end of the \texttt{pageant.exe} line, i.e.
+  \item OPTIONAL: To have your cslab SSH key automatically added into \textit{Pageant} when it runs, open the \textbf{Properties} box for the \textit{Pageant} Start menu shortcut (or the \textbf{Startup} shortcut). In the \textbf{Target} field enter the full filepath of your \verb|cslab_rsa.ppk| key file to the end of the \verb|pageant.exe| line, i.e.
 \end{enumerate}
   \begin{verbatim}
 "C:\Program Files\PuTTY\pageant.exe" "C:\Users\localuser\cslab_rsa.ppk"
@@ -232,12 +232,54 @@
 
 %------------------------------------------------
 \newpage
+\question{How do I copy files from/to cslab Linux environment via SSH on Windows?}\label{sftp_windows}
+
+%% \subsection*{Copying files remotely using \textit{PuTTY} command-line tools:}
+%% \begin{itemize}
+%%   \item Ensure you have first followed the directions in the previous section to configure your \textit{PuTTY} client.
+%%   \item Open a Windows command prompt/shell.
+%%   \item To copy a file from your local computer to your user home directory on cslab using \textit{PuTTY Secure Copy (PSCP)}, type \break
+%%   \verb|pscp local_filename_or_path cslab-sftp:~|
+%% \item To copy a file from your user home directory on cslab to a local directory on your local computer using \textit{Secure Copy (SCP)}, type \break
+%%   \verb|pscp cslab-sftp:~/remote_filename_or_path local_directory|
+    
+%%   \item To use the \textit{PuTTY SSH File Transfer Protocol (PSFTP)} interactive command-line tool, type \break
+%%   \verb|psftp cslab-sftp|  
+%% \item To see a list of available interactive commands once in \verb|psftp>|, type \verb|help|
+%% \end{itemize}
+
+\subsection*{Copying files remotely using \textit{SFTP} with the \textit{FileZilla} graphical client:}
+\begin{enumerate}
+  \item Ensure you have first followed the directions in the previous section to configure your \textit{PuTTY} client.
+  \item Download \texttt{FileZilla} software from the \href{https://filezilla-project.org/download.php?type=client}{FileZilla download page} and install the tool on your local Windows computer.
+  \item Run the \textit{FileZilla} graphical client program.
+  \item In the \textit{FileZilla} window, open the \textbf{Site Manager} via the \textbf{File} menu, by clicking on the upper-left icon, or by pressing \textbf{CTRL+S}.
+  \item In the \textit{Site Manager} window, click \textbf{New Site} and type in a site name, i.e. \verb|cslab-sftp|.
+  \item In the \textit{Site Manager} window, change the following fields:
+  \begin{itemize}
+    \item Host: \verb|cslab-sftp.cs.wichita.edu|
+    \item Protocol: \verb|[SFTP - SSH File Transfer Protocol]|
+    \item Logon Type: \verb|[Key file]|
+    \item User: \verb|your_mywsu_id|
+    %% \item Key file: Type the absolute path to your converted \verb|cslab.pem} file. Alternatively, click \textbf{Browse}, change the file type from \verb|PPK file} to \verb|PEM file}, browse to your \verb|cslab.pem}, and click \textbf{Open}.
+  \end{itemize}
+  \item \textit{FileZilla} can use \textit{PuTTY} SSH keys. To the right of the Key file field click \textbf{Browse}.
+  \item In the \textit{Choose a key file} window, browse to the local directory with your stored \verb|cslab_rsa.ppk| file. Select the \texttt{cslab\_rsa} key file and click on \textbf{Open}.
+  \item Click \textbf{Connect} and enter the passphrase/password to unlock your \textit{PuTTY} private key when prompted.
+  \item If you have set up \textit{FileZilla} correctly, it will automatically connect to \verb|cslab-sftp| and display your home directory on cslab in the right pane.
+  \item Drag-and-drop files to transfer them between your local computer and the remote cslab environment.
+  \item If you wish to hide ``hidden'' files which start with a period, then select \textbf{Directory Listing Filters} under the \textbf{View} menu, enable \textit{Configuration files} on the Remote filter, and click \textbf{OK} or \textbf{Apply}.
+  \item For further information on how to use \textit{FileZilla}, see the \href{https://wiki.filezilla-project.org/Documentation}{FileZilla documentation page}.
+\end{enumerate}
+
+%------------------------------------------------
+\newpage
 \question{Why is \textit{PuTTY} asking me to confirm the authenticity of cslab host?}\label{ssh_client_windows}
 
 \begin{itemize}
   \item SSH host keys are essential to securing an SSH connection into a remote server. If you see an incorrect host key, then it may mean a cyber-attacker has attempted to compromise the remote server.
-  \item The \texttt{cslab\_putty\_ssh\_client\_full\_configuration} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository} will automatically add the cslab host keys into your Windows registry when you add this file during the initial configuration and set up of \textit{PuTTY}. However, if your configuration lost the host keys for any reason, then it may ask you to confirm the authenticity of cslab hosts when you try to open an SSH connection.
-  \item You can also download the \texttt{cslab\_putty\_ssh\_client\_host\_keys\_only} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository} and re-add the host keys into your Windows registry.
+  \item The \verb|cslab_putty_ssh_client_full_configuration| file from \href{https://github.com/benroose/tutorials/tree/master/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository} will automatically add the cslab host keys into your Windows registry when you add this file during the initial configuration and set up of \textit{PuTTY}. However, if your configuration lost the host keys for any reason, then it may ask you to confirm the authenticity of cslab hosts when you try to open an SSH connection.
+  \item You can also download the \verb|cslab_putty_ssh_client_host_keys_only| file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository} and re-add the host keys into your Windows registry.
   \item Alternatively, you can manually add SSH host keys to your \textit{PuTTY} Session configurations. When adding new host keys you should always ensure the host key fingerprint is correct. cslab-bastion and cslab host key fingerprints must match one of the following SHA256 or MD5 hashes before you add or accept the host key:
 \begin{verbatim}
 ECDSA key fingerprint is
@@ -266,7 +308,7 @@ MD5:27:59:53:18:5a:67:71:f6:32:f1:e1:15:e9:e5:fe:b1
 \subsection*{Configuring the \textit{OpenSSH} client for cslab access:}
 \begin{enumerate}
   \item Install the \texttt{openssh-client} software package using your distribution's package management tools.
-  \item On your Linux or Mac desktop/laptop computer, copy the following host entry into your local user \texttt{$\sim$/.ssh/config} file:
+  \item On your Linux or Mac desktop/laptop computer, copy the following host entry into your local user's \verb|~/.ssh/config| file:
 \end{enumerate}
 
 \begin{verbatim}
@@ -282,34 +324,34 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
   IdentityFile $HOME/.ssh/cslab_rsa
   HostKeyAlias cslab.cs.wichita.edu
 \end{verbatim}
-(Note: replace ``your\_mywsu\_id'' with your own 8 character ID number in both \texttt{ProxyCommand} and \texttt{User} lines.)
+(Note: replace \verb|your_mywsu_id| with your own 8 character ID number in both \texttt{ProxyCommand} and \texttt{User} lines.)
 
 \begin{enumerate}
   \setcounter{enumi}{1}
   \item The above text is also available for download in the file \texttt{cslab\_openssh\_client\_config} from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/cslab_ssh_client_config_files}{Ben Roose's GitHub tutorials repository}.
   \item Open a command-line terminal emulator window and generate a new \textit{OpenSSH} public/private key pair for your local user by typing \break
-  \texttt{ssh-keygen -t rsa -b 4096 -f $\sim$/.ssh/cslab\_rsa}
+    \verb|ssh-keygen -t rsa -b 4096 -f ~/.ssh/cslab_rsa|
 
   \item Follow the prompts in the command-line as your new \textit{OpenSSH} key is generated and enter a passphrase you will remember! \break
   \textbf{It is highly recommended to use a passphrase for your new key to keep your Linux user account secure.}
   
   \item Open the newly generated \textit{OpenSSH} public key by typing \break
-  \texttt{less $\sim$/.ssh/cslab\_rsa.pub}
-  \item Select all the text displayed within \textit{less}, starting with \texttt{ssh-rsa} and ending with hostname of your computer.
+    \verb|less ~/.ssh/cslab_rsa.pub|
+  \item Select all the text displayed within \textit{less}, starting with \texttt{ssh-rsa} and ending with the hostname of your computer.
   \item Copy the selected text either by right-clicking on the terminal emulator window and selecting [copy] or by pressing the key combination \textbf{Ctrl+Shift+C}.
   \item Open a web-browser application and follow the \textit{eecs\_tutorial\_cslab\_web\_access} document to access \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu}
-  \item Once logged into \textit{guacamole}, open a [cslab\_SSH\_CLI\_terminal] connection.
+  \item Once logged into \textit{guacamole}, open a \textbf{cslab\_SSH\_CLI\_terminal} connection.
   \item Within the cslab SSH terminal session in your browser, open the \textit{Guacamole} menu sidebar by pressing the key combination \textbf{Ctrl+Alt+Shift}.
   \item Paste the copied text to the remote \textit{Guacamole} \textbf{Clipboard} field using your preferred method, i.e. \textbf{Ctrl+V}.
   \item Close the \textit{Guacamole} menu sidebar by pressing the key combination \textbf{Ctrl+Alt+Shift}.
   \item Within the cslab SSH terminal session, open your \texttt{authorized\_keys} file by typing \break
-  \texttt{nano $\sim$/.ssh/authorized\_keys}
+  \verb|nano ~/.ssh/authorized_keys|
   \item Paste your locally copied \textit{OpenSSH} public key into the terminal session by right-clicking on the browser window with your mouse or by pressing the key combination \textbf{Ctrl+Shift+V}.
   \item Ensure you have a blank line at end of the text file by pressing \textbf{Enter} if required.
-  \item Quit \textit{nano} by pressing \textbf{CTRL+X} and follow the prompts at the bottom of the screen to ensure you save the \texttt{authorized\_keys} file.
-  \item Ensure correct permissions are set on the \texttt{authorized\_keys} file by typing \break
-  \texttt{chmod 600 $\sim$/.ssh/authorized\_keys}
-  \item NOTE: If you wish to set up more than one local computer with different SSH keys for accessing cslab, then you can append additional SSH public keys in your cslab user \texttt{authorized\_keys} file. Make sure to remove no longer used SSH public keys from this file.
+  \item Quit \textit{nano} by pressing \textbf{CTRL+X} and follow the prompts at the bottom of the screen to ensure you save the \verb|authorized_keys| file.
+  \item Ensure correct permissions are set on the \verb|authorized_keys| file by typing \break
+    \verb|chmod 600 ~/.ssh/authorized_keys|
+  \item NOTE: If you wish to set up more than one local computer with different SSH keys for accessing cslab, then you can append additional SSH public keys in your cslab user \verb|authorized_keys| file. Make sure to remove no longer used SSH public keys from this file.
   \item Congratulations! You have now configured your local Linux or Mac computer to directly access cslab via \textit{OpenSSH}. Make sure to properly disconnect and log out of the cslab \textit{guacamole} web-interface once you are done with the above steps.
 \end{enumerate}
 
@@ -318,10 +360,13 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
 \begin{enumerate}
   \item Ensure you have first followed the directions in the previous section to configure your \textit{OpenSSH} client.
   \item In your local computer open a command-line terminal emulator window, such as \textit{lxterminal} or \textit{terminator}.
-  \item Start the ssh-agent in the background by typing \texttt{eval "\$(ssh-agent -s)"}
-  \item Add your cslab\_rsa private key to the ssh-agent by typing \texttt{ssh-add $\sim$/.ssh/cslab\_rsa}
+  \item Start the ssh-agent in the background by typing\break
+    \verb|eval "$(ssh-agent -s)"|
+  \item Add your cslab\_rsa private key to the ssh-agent by typing \break
+    \verb|ssh-add ~/.ssh/cslab_rsa|
   \item When prompted, enter your previously created passphrase to unlock your SSH private key.
-  \item Connect to the cslab Linux environment by typing \texttt{ssh cslab}
+  \item Connect to the cslab Linux environment by typing \break
+    \verb|ssh cslab|
   \item The first time you connect to the cslab environment using SSH, you will be asked to confirm the authenticity of each remote host, i.e.
 \begin{verbatim}
 The authenticity of host 'cslab.cs.wichita.edu' can't be established.
@@ -350,43 +395,44 @@ MD5:27:59:53:18:5a:67:71:f6:32:f1:e1:15:e9:e5:fe:b1
 \end{verbatim}
 
   \item If the SSH connection completed successfully, then you will be presented with a standard shell prompt within a cslab node:\break
-\texttt{your\_mywsu\_id@cslab-node-\#:$\sim$\$}
+  \verb|your_mywsu_id@cslab-node-#:~$|
   \item NOTE: Mac OSX and many Linux distributions can run the ssh-agent and unlock SSH keys during user login using a \textit{keychain} program. Check online for specific details on how to store SSH keys in your distribution. If not, then there are many script functions that can be added to your local user \texttt{.bashrc} file for running the ssh-agent at login, such as \href{https://gist.github.com/tstellanova/76ee01c1599d9a9433cf}{tstellanova's start\_ssh\_agent.sh on GitHubGist}.
 \end{enumerate}
 
 \subsection*{Logging into your last used cslab-node-\# using the \textit{OpenSSH} client:}
 \begin{itemize}
-  \item When connecting to the cslab Linux environment using \texttt{ssh cslab}, the ballast load-balancer will redirect you to one of the available and least used cslab-nodes at time of connection. Since load-balancing is calculated by ballast on a one minute cycle, you may not be redirected to the same cslab-node each time you connect.
+  \item When connecting to the cslab Linux environment using \verb|ssh cslab|, the ballast load-balancer will redirect you to one of the available and least used cslab-nodes at time of connection. Since load-balancing is calculated by ballast on a one minute cycle, you may not be redirected to the same cslab-node each time you connect.
 
   \item \textbf{Only connect to the last used cslab-node if you need access into a previously running SSH session. For normal use, best option is always let the ballast load-balancer automatically connect to an available node.}
   \item To connect to the last node you previously accessed using SSH type \break
-  \texttt{ssh cslab-last}
+  \verb|ssh cslab-last|
 \end{itemize}
 
 \subsection*{Running graphical (GUI) applications using the \textit{OpenSSH} client:}
 \begin{itemize}
   \item SSH allows for graphical applications to run on a local computer from the remote cslab Linux environment using X11 forwarding.
-  \item If you are using Mac OSX, then you may need to install the XQuartz software before using X11 forwarding. Download \href{https://www.xquartz.org}{XQuartz for Mac} and install the software package.
-  \item To use X11 forwarding on a per session basis append the \texttt{-X} option flag to your SSH command: \break
-  \texttt{ssh -X cslab}
-\item To always use X11 forwarding for connections into cslab, instead of using the \texttt{-X} option flag, add the following line to the \texttt{Host cslab cslab-last} entry in your local user \texttt{ $\sim$/.ssh/config} file: \newline
-  \texttt{ForwardX11 yes}
+  \item If you are using Mac OSX, then you may need to install the \textit{XQuartz} software before using X11 forwarding. Download \href{https://www.xquartz.org}{XQuartz for Mac} and install the software package.
+  \item To use X11 forwarding on a per session basis append the \verb|-X| option flag to your SSH command: \break
+   \verb|ssh -X cslab|
+\item To always use X11 forwarding for connections into cslab, instead of using the \verb|-X| option flag, add the following line to the \verb|Host cslab cslab-last| entry in your local user \verb|/.ssh/config| file: \break
+  \verb|ForwardX11 yes|
 \end{itemize} 
 
 %------------------------------------------------
 \newpage
-\question{How do I copy files from/to the cslab Linux environment via SSH/SFTP on Linux or Mac?}\label{sftp}
+\question{How do I copy files from/to cslab Linux environment via SSH on Linux or Mac?}\label{sftp_linux}
 
 \subsection*{Copying files remotely using \textit{OpenSSH} command-line tools:}
 \begin{itemize}
   \item Ensure you have first followed the directions in the previous section to configure your \textit{OpenSSH} client.
   \item To copy a file from your local computer to your user home directory on cslab using \textit{Secure Copy (SCP)}, type \break
-  \texttt{scp local\_filename\_or\_path cslab-sftp:$\sim$}
-  \item To copy a file from your user home directory on cslab to a local directory on your local computer using \textit{Secure Copy (SCP)}, type \break
-  \texttt{scp cslab-sftp:$\sim$/remote\_filename\_or\_path local\_directory}
+  \verb|scp local_filename_or_path cslab-sftp:~|
+\item To copy a file from your user home directory on cslab to a local directory on your local computer using \textit{Secure Copy (SCP)}, type \break
+  \verb|scp cslab-sftp:~/remote_filename_or_path local_directory|
+    
   \item To use the \textit{SSH File Transfer Protocol (SFTP)} interactive command-line tool, type \break
-  \texttt{sftp cslab-sftp}
-  \item To see a list of available \textit{SFTP} interactive commands, at the \texttt{sftp>} command prompt type \texttt{help}
+  \verb|sftp cslab-sftp|  
+\item To see a list of available interactive commands once in \verb|sftp>|, type \verb|help|
 \end{itemize}
 
 \subsection*{Copying files remotely using \textit{SFTP} with the \textit{FileZilla} graphical client:}
@@ -395,25 +441,35 @@ MD5:27:59:53:18:5a:67:71:f6:32:f1:e1:15:e9:e5:fe:b1
   \item Install the \texttt{filezilla} software package using your distribution's package management tools, or via the \href{https://filezilla-project.org/download.php?type=client}{FileZilla download page}.
   \item Run the \textit{FileZilla} graphical client program.
   \item In the \textit{FileZilla} window, open the \textbf{Site Manager} via the \textbf{File} menu, by clicking on the upper-left icon, or by pressing \textbf{CTRL+S}.
-  \item In the \textit{Site Manager} window, click \textbf{New Site} and type in a site name, i.e. \texttt{cslab-sftp}.
+  \item In the \textit{Site Manager} window, click \textbf{New Site} and type in a site name, i.e. \verb|cslab-sftp|.
   \item In the \textit{Site Manager} window, change the following fields:
   \begin{itemize}
-    \item Host: \texttt{cslab-sftp.cs.wichita.edu}
-    \item Protocol: \texttt{[SFTP - SSH File Transfer Protocol]}
-    \item Logon Type: \texttt{[Key file]}
-    \item User: \texttt{your\_mywsu\_id}
-    %% \item Key file: Type the absolute path to your converted \texttt{cslab.pem} file. Alternatively, click \textbf{Browse}, change the file type from \texttt{PPK file} to \texttt{PEM file}, browse to your \texttt{cslab.pem}, and click \textbf{Open}.
+    \item Host: \verb|cslab-sftp.cs.wichita.edu|
+    \item Protocol: \verb|[SFTP - SSH File Transfer Protocol]|
+    \item Logon Type: \verb|[Key file]|
+    \item User: \verb|your_mywsu_id|
+    %% \item Key file: Type the absolute path to your converted \verb|cslab.pem} file. Alternatively, click \textbf{Browse}, change the file type from \verb|PPK file} to \verb|PEM file}, browse to your \verb|cslab.pem}, and click \textbf{Open}.
   \end{itemize}
   \item \textit{FileZilla} cannot use \textit{OpenSSH} keys without your key being converted into a different format first. To the right of the Key file field click \textbf{Browse}.
-  \item In the \textit{Choose a key file} window, click the ``paper \& pencil'' icon in the upper-left to open \textit{Location:}. In the Location field type \texttt{$\sim$/.ssh/cslab\_rsa} and click \textbf{Open}.
+  \item In the \textit{Choose a key file} window, click the ``paper \& pencil'' icon in the upper-left to open \textit{Location:}. In the Location field type \verb|~/.ssh/cslab_rsa| and click \textbf{Open}.
   \item \textit{FileZilla} will ask you to convert the \textit{OpenSSH} key into a supported \textit{PuTTY} key format. Click \textbf{Yes} and enter the passphrase/password to unlock your \textit{OpenSSH} private key when prompted.
-  \item In the \textit{Select filename for converted key file} window, at the Name field type \texttt{$\sim$/.ssh/cslab.ppk} and click \textbf{Save}.
+  \item In the \textit{Select filename for converted key file} window, at the Name field type \verb|~/.ssh/cslab.ppk| and click \textbf{Save}.
   \item Click \textbf{Connect} and enter the passphrase/password to unlock your \textit{FileZilla} supported private key when prompted.
-  \item If you have set up \textit{FileZilla} correctly, it will automatically connect to \texttt{cslab-sftp} and display your home directory on cslab in the right pane.
+  \item If you have set up \textit{FileZilla} correctly, it will automatically connect to \verb|cslab-sftp| and display your home directory on cslab in the right pane.
   \item Drag-and-drop files to transfer them between your local computer and the remote cslab environment.
   \item If you wish to hide ``hidden'' files which start with a period, then select \textbf{Directory Listing Filters} under the \textbf{View} menu, enable \textit{Configuration files} on both Local and Remote filters, and click \textbf{OK} or \textbf{Apply}.
   \item For further information on how to use \textit{FileZilla}, see the \href{https://wiki.filezilla-project.org/Documentation}{FileZilla documentation page}.
 \end{enumerate}
+
+\begin{figure}[bh!]
+  \centering
+  %% \begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.6\linewidth]{filezilla_cslab_site_manager}
+\caption{\textit{FileZilla} Site Manager settings for cslab-sftp}
+  \label{fig:pageant}
+%% \end{subfigure}%
+\end{figure}
 
 %------------------------------------------------
 
