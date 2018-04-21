@@ -27,6 +27,7 @@
 \usepackage{tocloft} % Required to give customize the table of contents to display questions
 \usepackage{microtype} % Slightly tweak font spacing for aesthetics
 \usepackage{palatino} % Use the Palatino font
+\usepackage[T1]{fontenc} % Properly formats tildes (~) for command-line use
 
 \setlength\parindent{0pt} % Removes all indentation from paragraphs
 
@@ -92,7 +93,7 @@
 \begin{enumerate}
   \item Once logged into the cslab environment, open an SSH terminal session.
   \item Before you generate an SSH key, you can check to see if you have any existing SSH keys in your user account by typing \break
-  \texttt{ls $\sim$/.ssh}
+    \verb|ls ~/.ssh|
   \item Check the directory listing to see if you already have a public SSH key. By default, the filenames of the public keys are one of the following:
 \begin{verbatim}
     id_rsa.pub
@@ -101,7 +102,7 @@
     id_ed25519.pub
 \end{verbatim}
   \item If you do not have an SSH key or you wish to generate a new one, type \break
-\texttt{ssh-keygen -t rsa -b 4096 -C "your\_mywsu\_id-your\_last\_name"}
+    \verb|ssh-keygen -t rsa -b 4096 -C "your_mywsu_id-your_last_name"|
 
 \item Follow the prompts in the command-line as your new SSH key is generated:
   
@@ -117,16 +118,16 @@
       \textbf{You are required to use a passphrase for your SSH key to access grader accounts.}
     
   \item Download your SSH public key file to your local computer by typing \break
-    \texttt{guacget $\sim$/.ssh/id\_rsa.pub}
-  \item If the \texttt{id\_rsa.pub} file does not download to your local computer via the web-bowser, then you may need to disconnect from the terminal session by pressing CTRL+D and clicking the ``reconnect'' button.
-  \item Attach the downloaded \texttt{id\_rsa.pub} file to an email and send it both to the instructor of the class and to the EECS systems administrator (\href{mailto:ben.roose@wichita.edu}{ben.roose@wichita.edu}) with the following additional details in the email body:
+    \verb|guacget ~/.ssh/id_rsa.pub|
+  \item If the \verb|id_rsa.pub| file does not download to your local computer via the web-bowser, then you may need to disconnect from the terminal session by pressing CTRL+D and clicking the ``reconnect'' button.
+  \item Attach the downloaded \verb|id_rsa.pub| file to an email and send it both to the instructor of the class and to the EECS systems administrator (\href{mailto:ben.roose@wichita.edu}{ben.roose@wichita.edu}) with the following additional details in the email body:
 \begin{verbatim}
 myWSU_ID: your_myWSU_ID, i.e. a123b456
 Instructor: instructor_of_the_class i.e. Adam Sweeney
 Grader Account: grader_account_as_assigned_to_you, i.e. cs211a
 \end{verbatim}
   \item If you are a grader for more than one programming class, you will only need to generate one SSH key but you will need to append additional \texttt{Instructor} and \texttt{Grader Account} lines for each class you will be grading.
- \item Once your SSH public key has been added to the \texttt{authorized\_keys} for the grader account by the EECS systems adminstrator, you will then have access into it.
+ \item Once your SSH public key has been added to the \verb|authorized_keys| for the grader account by the EECS systems adminstrator, you will then have access into it.
 \end{enumerate}
 
 %------------------------------------------------
@@ -136,19 +137,19 @@ Grader Account: grader_account_as_assigned_to_you, i.e. cs211a
   \item Once logged into the cslab environment, open either an RDP desktop session or an SSH terminal session.
   \item If you are connected to an RDP desktop session, open a terminal emulator, i.e. \textit{LXTerminal} or \textit{Terminator}.
   \item To access your assigned grader account type \break
-\texttt{ssh grader\_account@localhost} \break
-(where \texttt{grader\_account} is the class account, i.e. \texttt{cs211a}).
+    \verb|ssh grader_account@localhost| \break
+(where \verb|grader_account| is the class account, i.e. \verb|cs211a|).
 \item Type in your recently created ``passphrase'' when prompted. \break
   If you are prompted for a ``password'' not a ``passphrase'', then there is something wrong with your SSH key. Double-check you generated an SSH key and contact the EECS systems administrator if you are not able to log into the grader account.
   \item Once logged into the grader account, you can use standard Linux command-line tools to access, view, and compile student assignments. \break
     For example: \texttt{ls, cd, less, vi, emacs, gcc, g++}.
   \item You will find each submitted student assignment in the directory \break
-    \texttt{$\sim$/handin/assign/\textit{assignment\_\#}/\textit{student\_myWSU\_ID}/}
+    \verb|~/handin/assign/assignment_#/student_myWSU_ID/|
   \item If a student submitted an assignment late, you will find it in the directory \break
-    \texttt{$\sim$/handin/assign/\textit{assignment\_\#}.late/\textit{student\_myWSU\_ID}/}
+    \verb|~/handin/assign/assignment_#.late/student_myWSU_ID/|
   \item To allow for graphical (GUI) applications, such as \textit{geany} or \textit{atom} to be used, add the \texttt{-X} option flag to the \texttt{ssh} command, i.e. \break
-\texttt{ssh -X cs211a@localhost}
-  \item To use a graphical application type the application's name followed by an ampersand (\&) in the terminal emulator. For example: \texttt{geany \&} \break
+\verb|ssh -X cs211a@localhost|
+  \item To use a graphical application type the application's name followed by an ampersand (\&) in the terminal emulator. For example: \verb|geany &| \break
     
 \textbf{NOTE: ssh -X option for graphical applications can ONLY be used within an RDP desktop session.}
 \end{enumerate}
