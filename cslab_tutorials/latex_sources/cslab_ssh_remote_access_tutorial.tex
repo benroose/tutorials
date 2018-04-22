@@ -403,7 +403,7 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
   \item Ensure you have first followed the directions in the previous section to configure your \textit{OpenSSH} client.
   \item In your local computer open a command-line terminal emulator window, such as the Mac OSX Terminal application, \textit{xterm}, \textit{lxterminal}, or \textit{terminator}.
   \item Start the ssh-agent in the background by typing\break
-    \verb|eval "$(ssh-agent -s)"|
+    \verb|eval $(ssh-agent)|
   \item Add your cslab\_rsa private key to the ssh-agent by typing \break
     \verb|ssh-add ~/.ssh/cslab_rsa|
   \item When prompted, enter the passphrase to unlock your local SSH private key.
@@ -411,7 +411,9 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
     \verb|ssh cslab|
   \item If everything is correctly configured, you will be automatically connected to an available cslab node! You should be presented with the shell prompt: \break
     \verb|your_mywsu_id@cslab-node-#:~$|
-  \item NOTE: Mac OSX and many Linux distributions can run the ssh-agent and unlock SSH keys during user login using a \textit{keychain} program. Check online for specific details on how to store SSH keys in your distribution. If not, then there are many script functions that can be added to your local user \texttt{.bashrc} file for running the ssh-agent at login, such as \href{https://gist.github.com/tstellanova/76ee01c1599d9a9433cf}{tstellanova's start\_ssh\_agent.sh on GitHubGist}.
+  \item NOTE: Mac OSX and many Linux distributions can automatically run \verb|ssh-agent| and unlock SSH keys during user login using the \textit{keychain} tool. Check online for specific details on how to store SSH keys in \textit{keychain} for your OS/distribution.
+  \item \href{https://www.funtoo.org/Keychain}{Click here for further information on using \textit{keychain}.}
+  \item \href{https://gist.github.com/tstellanova/76ee01c1599d9a9433cf}{Click here for a simple ssh-agent script from tstellanova on GitHubGist.}
 \end{enumerate}
 
 \newpage
@@ -465,7 +467,6 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
     \item Protocol: \verb|[SFTP - SSH File Transfer Protocol]|
     \item Logon Type: \verb|[Key file]|
     \item User: \verb|your_mywsu_id|
-    %% \item Key file: Type the absolute path to your converted \verb|cslab.pem} file. Alternatively, click \textbf{Browse}, change the file type from \verb|PPK file} to \verb|PEM file}, browse to your \verb|cslab.pem}, and click \textbf{Open}.
   \end{itemize}
   \item \textit{FileZilla} cannot use \textit{OpenSSH} keys without your key being converted into a different format first. To the right of the Key file field click \textbf{Browse}.
   \item In the \textit{Choose a key file} window, click the ``paper \& pencil'' icon in the upper-left to open \textit{Location:}. In the Location field type \verb|~/.ssh/cslab_rsa| and click \textbf{Open}.
