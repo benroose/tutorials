@@ -7,6 +7,7 @@ Host cslab cslab-last cslab.cs.wichita.edu cslab-last.cs.wichita.edu
   User mywsu_placeholder
   IdentityFile  $HOME/.ssh/cslab_rsa
   Compression yes
+  ServerAliveInterval 60
   HostKeyAlias cslab.cs.wichita.edu
   
   # uncomment the line below to always enable X11 forwarding
@@ -18,4 +19,5 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
   User mywsu_placeholder
   IdentityFile  $HOME/.ssh/cslab_rsa
   Compression yes
+  ServerAliveInterval 60
   HostKeyAlias cslab.cs.wichita.edu
