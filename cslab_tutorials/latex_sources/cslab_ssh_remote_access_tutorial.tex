@@ -83,13 +83,24 @@
 \question{General Information regarding accessing cslab Linux environment using SSH}\label{ssh_client_linux}
 \begin{itemize}
   \item \textbf{Only connect to the cslab environment with an SSH client if you have previous experience in using SSH and the Linux command-line. If you are new to Linux, please use the cslab web-browser interface at \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu}.}
-  \item SSH uses network port 22. If you are accessing cslab via SSH on WSU campus, ensure you are connected wirelessly to \textit{WSU Secure} or using an Ethernet connected computer. \textit{WSU Guest} wireless prohibits port 22 connections and your SSH session will fail to connect.
+  \item SSH uses network port 22. When accessing cslab via SSH on WSU campus, ensure you are connected wirelessly to \textit{WSU Secure} or using an Ethernet connection. \textit{WSU Guest} prohibits port 22 connections so SSH conections will not work.
   \item You can only access cslab using SSH public key authentication. You cannot access cslab over SSH using your myWSU password.
-  \item The cslab-nodes are located inside a virtual private network. These internal nodes are only SSH accessible via the \verb|cslab-bastion.cs.wichita.edu| proxy host. Any external connection into the cslab environment must first proxy connect through the \verb|cslab-bastion|.
-  \item \verb|cslab-sftp.cs.wichita.edu| can be used as a secure file transfer host with command-line SSH clients, such as \textit{PSFTP} or \textit{SFTP}, and graphical SFTP clients, such as \textit{Filezilla}.
-  \item This tutorial will help you configure your SSH and SFTP clients for access into cslab using SSH public key authentication via a proxy host.
+  \item cslab-nodes are located inside a private network and only accessible via the \verb|cslab-bastion| jumphost. Any external connection into the cslab environment must proxy through \verb|cslab-bastion.cs.wichita.edu|.
+  \item \verb|cslab-sftp.cs.wichita.edu| can be used for secure file transfer with command-line tools, such as \textit{PSFTP/SFTP}, or graphical tools, such as \textit{Filezilla}.
+  \item This tutorial will help you configure your SSH and SFTP clients for access into cslab using SSH public key authentication via the \verb|cslab-bastion| jumphost.
   \item \textbf{ONLY USE CSLAB-BASTION AS A PROXY/JUMPHOST AND CSLAB-SFTP AS AN SCP/SFTP SERVER. DO NOT DIRECTLY SSH INTO CSLAB-BASTION OR CSLAB-SFTP FOR ANY OTHER TASKS!}
 \end{itemize}
+
+\begin{figure}[bh!]
+  \centering
+  %% \begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{cslab_ssh_network}
+\caption{Logical diagram of cslab network}
+  \label{fig:pageant}
+%% \end{subfigure}%
+\end{figure}
+
 
 %------------------------------------------------
 \newpage
