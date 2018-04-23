@@ -369,7 +369,7 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
 
 \begin{enumerate}
   \setcounter{enumi}{5}
-  \item The cslab SSH host keys must be added into your local \verb|~/.ssh/known_hosts| file. Download the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_openssh_known_hosts}{cslab\_openssh\_known\_hosts} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/}{Ben Roose's GitHub tutorials repository}. You can download this file directly using \verb|wget| You may need to right-click on the web-page in your browser and select \textbf{Save as} or \textbf{Save page as}, or you can download this file directly using \verb|wget|
+  \item The cslab SSH host keys must be added into your local \verb|~/.ssh/known_hosts| file. Download the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_openssh_known_hosts}{cslab\_openssh\_known\_hosts} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/}{Ben Roose's GitHub tutorials repository}. You may need to right-click on the web-page in your browser and select \textbf{Save as} or \textbf{Save page as}, or you can download this file directly using \verb|wget|
   \item The host keys can be added into your known\_hosts by changing into the directory where you downloaded the \verb|cslab_openssh_known_hosts| file and typing \break
     \verb|cat cslab_openssh_known_hosts >> ~/.ssh/known_hosts|
   \item Generate a new \textit{OpenSSH} public/private key pair for your local user by typing \break
