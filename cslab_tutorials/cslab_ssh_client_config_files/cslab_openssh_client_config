@@ -21,3 +21,10 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
   Compression yes
   ServerAliveInterval 60
   HostKeyAlias cslab.cs.wichita.edu
+
+
+# FOR MAC OSX USE ONLY - uncomment next three lines to use Apple keychain
+# Host *
+#  UseKeychain yes
+#  AddKeysToAgent yes
+
