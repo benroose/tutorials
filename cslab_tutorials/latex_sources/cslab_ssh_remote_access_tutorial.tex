@@ -151,12 +151,12 @@
   \item Back in the \textit{PuTTY Key Generator} window, click \textbf{Save private key}.
   \item In the \textit{Save private key} window, browse to a local directory where you wish to securely store your new \textit{PuTTY} SSH key and in the \textbf{File name} field enter the name \verb|cslab_rsa|. Clicking on \textbf{Save} will store your \verb|cslab_rsa.ppk| key file to your local computer. \textbf{Keep this file safe and private!}
   \item OPTIONAL: If you wish to also store your SSH public key as a simple text file for future reference, then click \textbf{Save public key}, browse to the same directory, and in the \textbf{File name} field enter the name \verb|cslab_rsa_public_key.txt|
-  \item Once you are done with the above steps, exit/close the \textit{PuTTY Key Generator} program.
+  \item Once you are done with the above steps, exit/close \textit{PuTTY Key Generator} program.
   \item Download the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_putty_ssh_client_full_configuration.reg}{cslab\_putty\_ssh\_client\_full\_configuration.reg} registry file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/}{Ben Roose's GitHub tutorials repository}.
 
-   NOTE: If you browse to this file from within the repository, then you must open the file link in the web-browser and click on \textbf{Raw} to open the plaintext file. You can then right-click on the \textbf{Raw} plaintext in your browser and select \textbf{Save as} or \textbf{Save page as}. If you just save the file from the link in the \textit{GitHub} repository, then you may accidentally download an HTML webpage file which will be unuseable!
+   NOTE: If you browse to this file from within the repository, then you must open the file link in the web-browser and click on \textbf{Raw} to open the plaintext file. You can then right-click on the \textbf{Raw} plaintext in your browser and select \textbf{Save as} or \textbf{Save page as}. If you just save the file from the link in the \textit{GitHub} repository, then you may accidentally download an HTML webpage file which will be unusable!
     
-  \item Double-click on the downloaded file in your file explorer, and click \textbf{Yes} when asked if you wish to add this new information to your Windows registry. You will not be able to continue configuration of PuTTY until this file has been added into your Windows registry.
+  \item Double-click on the downloaded file in your file explorer, and click \textbf{Yes} when asked if you wish to add this new information to your Windows registry. You will not be able to continue configuration until this file has been added into the registry.
   \item INFORMATION: Windows \texttt{.reg} files are actually text documents used to enter simple key=value pairs into the Windows registry for software configuration. If you are concerned with the security implications of adding this file into your Windows registry, then you can open the downloaded file within a text editor or by clicking on the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_putty_ssh_client_full_configuration.reg}{cslab\_putty\_ssh\_client\_full\_configuration.reg raw data link}. You can then easily read through what key=value pairs are being added. As can be seen, this \texttt{.reg} file just adds session configuration data for the PuTTY software into your current user's registry entry.
   \item Once the registy file has been added into your registry, run the \textit{PuTTY} program and you should now see two new \textbf{Saved Sessions} entries in your \textit{PuTTY} Configuration Window listed as \textit{cslab access} and \textit{cslab last node accessed}.
   \item Click on \textit{cslab access} and click on \textbf{Load}. DO NOT click \textbf{Open}.
@@ -164,7 +164,7 @@
   \item Click on the \textit{Connection--Proxy} Category tab on the left of the window and enter your myWSU ID in the \textbf{Username} field.
   \item Use the screenshots on the next page as a reference and double-check you made all the correct changes to your \textit{PuTTY} session configuration. Make sure you used lowercase characters for your myWSU ID.
   \item Click on the \textit{Session} Category tab on the left of the window and click on \textbf{Save}. DO NOT click \textbf{Open}.
-  \item Perform the last 4 steps again for the \textit{cslab last node accessed} entry.
+  \item Perform the last 5 steps again for the \textit{cslab last node accessed} entry.
   \item Once you are done with the above steps, exit/close the \textit{PuTTY} program.
   \item Congratulations! You have now configured your local Windows computer to directly access cslab with \textit{PuTTY}. However, you will need to add your new SSH key to the \textit{Pageant (PuTTY Authentication agent)} prior to logging into cslab. Running \textit{Pageant} and adding your SSH key will be explained in the next section.
 \end{enumerate}
@@ -373,7 +373,7 @@ MD5:27:59:53:18:5a:67:71:f6:32:f1:e1:15:e9:e5:fe:b1
   \item Download the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_openssh_client_config}{cslab\_openssh\_client\_config} file from \href{https://github.com/benroose/tutorials/tree/master/cslab_tutorials/}{Ben Roose's GitHub tutorials repository}. Alternatively, you can download this file directly by copying the \href{https://raw.githubusercontent.com/benroose/tutorials/master/cslab_tutorials/cslab_ssh_client_config_files/cslab_openssh_client_config}{weblink to the file} and typing\\
     \verb|wget PASTE_THE_WEBLINK_HERE|
 
-    NOTE: If you browse to this file from within the repository, then you must open the file link in the web-browser and click on \textbf{Raw} to open the plaintext file. You can then right-click on the \textbf{Raw} plaintext in your browser and select \textbf{Save as} or \textbf{Save page as}. If you just save the file from the link in the \textit{GitHub} repository, then you may accidentally download an HTML webpage file which will be unuseable!
+    NOTE: If you browse to this file from within the repository, then you must open the file link in the web-browser and click on \textbf{Raw} to open the plaintext file. You can then right-click on the \textbf{Raw} plaintext in your browser and select \textbf{Save as} or \textbf{Save page as}. If you just save the file from the link in the \textit{GitHub} repository, then you may accidentally download an HTML webpage file which will be unusable!
 
   \item The downloaded cslab configuration can be added into your SSH client config while substituting your own myWSU ID (using lowercase characters) into it by changing into the directory where you downloaded the \verb|cslab_openssh_client_config| file and typing
 \begin{verbatim}
@@ -444,27 +444,61 @@ Host cslab-sftp cslab-sftp.cs.wichita.edu
     \verb|chmod 600 ~/.ssh/authorized_keys|
   \item NOTE: If you wish to set up more than one local computer with different SSH keys for accessing cslab, then you can append additional SSH public keys in your cslab user \verb|authorized_keys| file. Make sure to remove no longer used SSH public keys from this file.
   \item Once you are done with the above steps, make sure to properly disconnect and log out of the cslab \textit{guacamole} web-interface by pressing the key combination \textbf{Ctrl+Alt+Shift} and selecting \texttt{Disconnect} or \texttt{Logout} from the sub-menu under your myWSU ID.
+  \item Make sure to follow the next section to automatically unlock your cslab key.
+\end{enumerate}
+
+\subsection*{Ensuring cslab SSH private key is in system keychain/ssh-agent:}
+\begin{itemize}
+  \item You will want to ensure that your new SSH private key has been inserted into your system's keychain for automatic unlocking of the key when you need to use it. Depending upon your operating system this can be accomplished in different ways.
+
+  \item For \textit{Ubuntu Linux} based distributions, the default graphical SSH key and password manager is \textit{seahorse}.
+  \begin{enumerate}
+    \item Open \textbf{Keys and Passwords} from the \textit{Unity} dash application lens in Ubuntu.
+    \item Under the \textbf{OpenSSH keys} tab in \textit{Keys and Passwords} you should see all keys located within your \verb|~/.ssh| directory, including your newly created \verb|cslab_rsa| key.
+    \item When you initiate your first \verb|cslab| SSH session from a terminal emulator, \textit{seahorse} will ask for your passphraseand  add it to the running \textit{ssh-agent} process.
+    \item For further help, \href{https://www.lifewire.com/guide-to-seahorse-tool-2196541}{see this article ``How to Use the Ubuntu Password Manager.''}
+  \end{enumerate}
+
+  \item For more generic \textit{Debian or Red Hat Linux} based distributions, you can set up the command-line \textit{keychain} program and add it to your \verb|~/.bashrc| file:
+  \begin{enumerate}
+    \item If not already installed, install \textit{keychain} using your distribution's package management software, i.e. \verb|apt-get install keychain|.
+    \item Add the line \verb|eval $(keychain --eval --agents ssh cslab_rsa)| to the end of your \verb|~/.bashrc| file to enable keychain to unlock your ssh key when you open a terminal emulator window by typing
+      \verb|echo 'eval $(keychain --eval --agents ssh cslab_rsa)' >> ~/.bashrc|
+    \item OPTIONAL: If you have other SSH private keys which you also want unlocked, such as \verb|id_rsa|, then you can add their filenames between the \verb|cslab_rsa| and the closing parenthesis in the above line.
+    \item OPTIONAL: If you want to tighten the security of \textit{keychain}, then you can add the option \verb|--clear| before the \verb|--agents| option in the above line. Note that \verb|--clear| option will remove and ask to re-add all stored keys whenever you open a new terminal emulator window.
+    \item For further help, \href{https://www.funtoo.org/Keychain}{see the offical \textit{keychain} documentation}.
+  \end{enumerate}
+
+\newpage
+  \item For \textit{Apple Mac} OSX systems, the default SSH key and password manager uses a customized version of \textit{keychain}. To use Mac \textit{keychain} for unlocking your SSH private keys, you need to add the following lines to the end of your \verb|~/.ssh/config| file:
+\begin{verbatim}
+Host *
+UseKeychain yes
+AddKeysToAgent yes
+\end{verbatim}
+  For further help, \href{https://support.apple.com/guide/keychain-access/welcome/mac}{see the offical Apple \textit{keychain Access} documentation}.
+
+  \item If you do not wish to use any of the above methods for unlocking your SSH private key, then you can manually run the ssh-agent from the command-line at the beginning of each terminal session:
+  \begin{enumerate}
+    \item Start the ssh-agent in the background by typing\break
+      \verb|eval $(ssh-agent)|
+    \item Add your cslab\_rsa private key to the ssh-agent by typing \break
+      \verb|ssh-add ~/.ssh/cslab_rsa|
+    \item When prompted, enter the passphrase to unlock your local SSH private key.
+  \end{enumerate}
 
   \item Congratulations! You have now configured your local Linux or Mac computer to directly access cslab with \textit{OpenSSH}.
-\end{enumerate}
+\end{itemize}
 
 %% \newpage
 \subsection*{Logging into cslab using the \textit{OpenSSH} client:}
 \begin{enumerate}
-  \item Ensure you have first followed the directions in the previous section to configure your \textit{OpenSSH} client.
+  \item Ensure you have first followed the directions in the previous sections to configure your \textit{OpenSSH} client and ensure your SSH private key has been added to keychain/ssh-agent.
   \item In your local computer open a command-line terminal emulator window, such as the Mac OSX Terminal application, \textit{xterm}, \textit{lxterminal}, or \textit{terminator}.
-  \item Start the ssh-agent in the background by typing\break
-    \verb|eval $(ssh-agent)|
-  \item Add your cslab\_rsa private key to the ssh-agent by typing \break
-    \verb|ssh-add ~/.ssh/cslab_rsa|
-  \item When prompted, enter the passphrase to unlock your local SSH private key.
   \item Connect to the cslab Linux environment by typing \break
     \verb|ssh cslab|
   \item If everything is correctly configured, you will be automatically connected to an available cslab node! You should be presented with the shell prompt: \break
     \verb|your_mywsu_id@cslab-node-#:~$|
-  \item NOTE: Mac OSX and many Linux distributions can automatically run \verb|ssh-agent| and unlock SSH keys during user login using the \textit{keychain} tool. Check online for specific details on how to store SSH keys in \textit{keychain} for your OS/distribution.
-  \item \href{https://www.funtoo.org/Keychain}{Click here for further information on using \textit{keychain}.}
-  \item \href{https://gist.github.com/tstellanova/76ee01c1599d9a9433cf}{Click here for a simple ssh-agent script from tstellanova on GitHubGist.}
 \end{enumerate}
 
 \newpage
