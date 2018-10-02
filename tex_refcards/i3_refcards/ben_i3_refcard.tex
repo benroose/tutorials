@@ -1,0 +1,104 @@
+\documentclass[landscape]{article}
+\usepackage[letterpaper,landscape,margin=1.5cm]{geometry}
+\usepackage[table]{xcolor}
+%% \usepackage{dejavu}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage{multicol}
+\newcommand{\thead}[1]{{\color{black}\bf#1}}
+
+% Tables are colored via xcolor package.  The following command can be
+% used at the beginning of a table to ensure that the colors start on
+% the right foot.
+\newcommand{\blankfirst}{%
+  \ifodd\rownum\advance\rownum1\relax\fi}
+\newcommand{\coloredfirst}{%
+  \blankfirst\advance\rownum1\relax}
+
+\begin{document}
+\thispagestyle{empty}
+\rowcolors{2}{white}{blue!35}
+\begin{center}
+  \Huge Ben custom \texttt{i3} cheat cheet % 
+  \rlap{\color{blue!50}\large{v2.0}}%
+\end{center}
+
+\begin{multicols}{3}
+  \small
+  \section*{Workspaces}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.9in}p{2in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|Mod +| 1\dots10 & Switch to workspace 1,\dots,10\\
+    \verb|Mod+Shift +| 1\dots10 & Move container to workspace 1,\dots,10\\
+    \verb|Ctrl+Alt + Lt/Rt| & Switch to previous/next workspace\\
+    \verb|Ctrl+Alt+Shift +| \verb|Lt/Rt| & Move container to previous/next workspace\\
+    \verb|Ctrl+Alt+Shift +| \verb|Up/Down| & Move workspace to previous/next monitor\\
+  \end{tabular}
+
+  \section*{Containers}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.9in}p{2in}} % tblfmt\noindent\begin{tabular}{p{.4in}p{0.9in}p{1.5in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|Alt + Tab| & Change focus to right container\\
+    \verb|Alt+Shift + Tab| & Change focus to left container\\
+    \verb|Mod + x| & Change focus to parent container\\
+    \verb|Mod + c| & Change focus to child container\\
+    \verb|Mod + f| & Move container to fullscreen\\
+    \verb|Mod + s| & Change to Stack container layout\\
+    \verb|Mod + w| \verb|Mod + t| & Change to Tab container layout\\
+    \verb|Mod + e| & Split layout horizonally or vertically\\
+    \verb|Mod + q| & Cycle between container layouts\\
+    \verb|Mod + Space| & Cycle container from tiling to floating\\
+    \verb|Mod+Shift +| \verb|Space| & Cycle between tiling and floating for new container\\
+    \verb|Alt +| Mouse & Move floating container around screen\\
+  \end{tabular}
+  \columnbreak
+ 
+  \section*{Windows/panes}
+  \subsection*{\color{gray!80}Window navigation and management}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.8in}p{2.1in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|Mod + h OR _ | & Split area horizontally into two windows/panes\\
+    \verb|Mod + v OR | | & Split area vertically into two windows/panes\\
+    \verb|Mod + Arrows| \verb|Mod + j,k,l,;|& Focus to window/pane in that direction\\
+    \verb|Mod+Shift +| Arrows \verb|Mod + j,k,l,;| & Move window/pane in that direction\\
+    \verb|Mod + Q| \verb|Alt + F4| & Kill focused window/pane\\
+  \end{tabular}
+  \subsection*{\color{gray!80}Window layout}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.8in}p{2.1in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|Mod + r| & Enter into window resize mode\\
+    \verb|j,k,l,;| Arrows & [In resize mode] Resize window/pane in that direction by 10px\\
+    \verb|Escape/Enter| & [In resize mode] Cancel/Confirm window/pane resize\\
+  \end{tabular}
+  \columnbreak
+
+\section*{Misc}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.9in}p{2in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|Printscreen | & Use scrot application to print screen\\
+    \verb|Mod + a | & Enter into Application Quick Launch Mode\\
+    \verb|Mod + d| \verb|Alt + F2 | & Enter into Dmenu application launcher\\
+    \verb|Ctrl+Alt + t | & Open Terminator terminal emulator\\
+    \verb|Ctrl+Alt + h | & Run htop process monitor\\
+    \verb|Mod + p | & Open scratchpad window\\
+    \verb|Mod + P | & Move current container into scratchpad window\\
+    \verb|Mod + C| & Reload i3 configuration file\\
+    \verb|Mod + R| & Restart i3 session\\
+    \verb|Mod + E| & Exit i3 session\\
+    \verb|Mod+Shift+Delete| & Lock screen with i3lock\\
+    \verb|Mod + Escape| \verb|Mod + Pause | & Enter into System Shutdown Mode\\
+    \verb|Mod + Escape| twice & Shutdown system\\
+  \end{tabular}
+
+  \section*{Tips}
+  \begin{itemize}
+  \item Modifier key is Windows key (Mod4)
+  \item Configuration file: $\sim$/.config/i3/config
+  \end{itemize}
+\end{multicols}
+\end{document}

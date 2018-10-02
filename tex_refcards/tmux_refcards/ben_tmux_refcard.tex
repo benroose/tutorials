@@ -1,0 +1,144 @@
+\documentclass[landscape]{article}
+\usepackage[letterpaper,landscape,margin=1.5cm]{geometry}
+\usepackage[table]{xcolor}
+%% \usepackage{dejavu}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage{multicol}
+\newcommand{\thead}[1]{{\color{black}\bf#1}}
+
+% Tables are colored via xcolor package.  The following command can be
+% used at the beginning of a table to ensure that the colors start on
+% the right foot.
+\newcommand{\blankfirst}{%
+  \ifodd\rownum\advance\rownum1\relax\fi}
+\newcommand{\coloredfirst}{%
+  \blankfirst\advance\rownum1\relax}
+
+\begin{document}
+\thispagestyle{empty}
+\rowcolors{2}{white}{blue!35}
+\begin{center}
+  \Huge Ben custom \texttt{tmux} cheat cheet % 
+  \rlap{\color{blue!50}\large{v2.0}}%
+  \llap{\raisebox{-1ex}{%
+      \normalsize\color{gray}based on: http://www.clintoncurry.net/tmux-cheatsheet}}
+\end{center}
+
+\begin{multicols}{3}
+  \small
+  \section*{Sessions}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.6in}p{2.3in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|$| & Rename the session\\
+    \verb|s| & Go to window in different session\\
+    \verb|Q, W, E| & Switch between sessions\\
+    \verb|L| & Switch to last session\\
+    \verb|(| or \verb|)| & Cycle through sessions\\
+    \verb|r| & Refresh the client\\
+    \verb|d OR C-d| & Detach yourself from the session\\
+    \verb|D| & Detach someone else from the session\\
+  \end{tabular}
+
+  \section*{Misc}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.6in}p{2.3in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|C-prefix| & Send prefix to current pane's process\\
+    \verb|C-z| & Send tmux process to the background\\
+    \verb|:| & Enter a command directly\\
+    \verb|?| & Show list of all key bindings\\
+    %\texttt{{\raise.17ex\hbox{$\scriptstyle\sim$}}} 
+    $\mathtt \sim$ & Show tmux messages you might have missed\\
+    \verb|t| & Show clock in the current pane\\
+    \verb|i| & Display information about current window\\
+    \verb|M| & Edit tmux configuration file\\
+    \verb|R| & Reload tmux configuration file\\
+  \end{tabular}  
+
+  \section*{Copy/Paste (Emacs mode)}
+  See man page for vi mode commands.\\
+  \blankfirst
+  \noindent\begin{tabular}{p{0.6in}p{2.3in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|[| & Enter copy mode\\
+    C-Spc & Start selection\\
+    C-w & Copy selection\\
+    \verb|v| or \verb|R| & Toggle rectangle select\\
+    \verb|#| & Paste buffer select menu\\
+    \verb|]| & Paste into current buffer\\
+    \verb|-| & Delete current buffer\\
+    PgUp &  Enter copy mode, and scroll up\\
+  \end{tabular}
+
+  \section*{Panes}
+  \subsection*{\color{gray!80}Pane navigation and management}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.6in}p{2.3in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|o| & Focus to next pane\\
+    \verb|" OR _ | & Split area horizontally into two panes\\
+    \verb|% OR | | & Split area vertically into two panes\\
+    Arrows & Focus to pane in that direction\\
+    \verb|C-o| & Rotate panes around in current window\\
+    \verb|!| & Create new window and move current pane to it\\
+    \verb|q| & Briefly label panes with numbers and dimensions\\
+    \verb|x| & Kill current pane\\
+    \verb|p| & Respawn pane\\
+    \verb|{| & Swap this pane with previous one\\
+      \verb|}| & Swap this pane with next one\\
+  \end{tabular}
+  \subsection*{\color{gray!80}Pane layout}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.6in}p{2.3in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|M-1| & even-horizontal\\
+    \verb|M-2| & even-vertical\\
+    \verb|M-3| & main-horizontal\\
+    \verb|M-4| & main-vertical\\
+    \verb|M-5| & tiled\\
+    Spc & Cycles through above arrangements.\\
+    \verb|C-|arrow & Resize a pane (slowly)\\
+    \verb|M-|arrow & Resize a pane (quickly)\\
+    \verb|u| & Go backward in this window's layout history (repeatable)\\
+    \verb|U| & Go forward in this window's layout history (repeatable)\\
+  \end{tabular}   
+  \columnbreak
+
+  \section*{Windows}
+  \blankfirst
+  \noindent\begin{tabular}{p{0.6in}p{2.3in}} % tblfmt\noindent\begin{tabular}{p{.4in}p{0.9in}p{1.5in}} % tblfmt
+    \thead{Key} & \thead{Function}\\
+    \verb|c| & Create a new window\\
+    0\dots9 & Switch to window 0, 1, \dots, 9\\
+    \verb|'| & Select window (prompt for index)\\
+    \verb|.| & Give current window a new index\\
+    \verb|f| & Find window whose title matches selected glob\\
+    \verb|,| & Rename current window\\
+    \verb|&| & Kill current window\\
+    \verb|M-n| & Next window that has seen activity\\
+    \verb|M-p OR Tab| & Previous window that has seen activity\\
+    \verb|l| & Change focus to last window\\
+    \verb|n| & Change focus to next window\\
+    \verb|p| & Change focus to previous window\\
+    \verb|w| & Choose window from interactive list\\
+  \end{tabular}
+  \section*{On the command line}
+  \ifodd\rownum\advance\rownum1\relax\fi
+  \coloredfirst
+  \begin{tabular}{p{2.9in}}
+    \verb|tmux new-session -s session-name|\\
+    \verb|tmux list-sessions|\\
+    \verb|tmux kill-session -t target|
+  \end{tabular}
+  \section*{Tips}
+  \begin{itemize}
+  \item Default prefix is \verb|C-b|. Changed to \verb|C-a|
+  \item After \verb|C-prefix ?|, use \verb|/| to search for a command;
+    \verb|n| and \verb|N| to navigate among results
+  \item Multi-attach to the same session
+  \item Configuration file: $\sim$/.tmux.conf
+  \end{itemize}
+\end{multicols}
+\end{document}
