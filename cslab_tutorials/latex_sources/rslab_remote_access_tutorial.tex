@@ -80,52 +80,53 @@ Username: student
 Password: arista
 \end{verbatim}
 
+\newpage
 %------------------------------------------------
 
 \question{How do I access rslab equipment from a mobile Linux terminal in EE 328C?}\label{mobile_terminals}
 
 \begin{enumerate}
-\item In EE 328 C turn on a mobile Linux terminal. Computer will network boot from the rslab LTSP server and automatically log into a GUI desktop environment.
-\item Open \textit{PAC Manager} from the Desktop or the \textit{applications} menu.
-\item On left side, double-click the terminal server for the rack \# assigned to you by GTA. A new session tab window will open and connect into the terminal server.
-\item Once connected to the terminal server for your assigned rack, use the menu options to connect into and disconnect from the Arista switches and Cisco router in the EE 328D networking rack.
-\item At any time you can return to the terminal server menu by pressing \texttt{CTRL+SHIFT+7}.
-\item To view all open connections in the session, return to the menu and press \texttt{16}.
-\item To exit from the terminal server, return to the menu and press \texttt{18}.
+  \item In EE 328C turn on a mobile Linux terminal. Computer will network boot from the rslab LTSP server and automatically log into a GUI desktop environment.
+  \item Open \textit{PAC Manager} from the Desktop or the \textit{applications} menu.
+  \item On left side, double-click the terminal server for the rack \# assigned to you by GTA. A new session tab window will open and connect into the terminal server.
+  \item Once connected to the terminal server for your assigned rack, use the menu to connect/disconnect the Arista switches and Cisco router in the networking rack.
+  \item You can return to the terminal server menu by pressing \texttt{CTRL+SHIFT+7}.
+  \item To view all open connections in the session, return to the menu and press \texttt{16}.
+  \item To exit from the terminal server, return to the menu and press \texttt{18}.
 \end{enumerate}
 
 \textbf{NOTE:} You can open more than one tabbed session within \textit{PAC Manager} to access the same rack terminal server and connect to multiple network devices concurrently, but each switch or router can only be accessed by one terminal server session at a time.
 
 \begin{figure}[h]
-\caption{Example of connecting with \textit{PAC Manager} from a mobile Linux terminal}
-\includegraphics[width=\linewidth]{rslab_pac}
-\centering
+  \caption{Example of connecting with \textit{PAC Manager} from a mobile Linux terminal}
+  \includegraphics[width=.9\linewidth]{rslab_pac}
+  \centering
 \end{figure}
 
 \newpage
 %------------------------------------------------
 
-\question{How do I access rslab equipment using a computer in EE 328 or EE 327 labs?}\label{remote_access}
+\question{How do I access rslab equipment using a computer in EE 327 or EE 328 labs?}\label{remote_access}
 
 \begin{enumerate}
   \item Run the SSH \textit{PuTTY} client on a Windows computer in the lab.
   \item In the \textit{PuTTY} Configuration window, enter \verb|rslab.cs.wichita.edu| into the \textbf{Host Name} field.
-  \item You may wish to make further \textit{PuTTY} configuration changes, such as adjusting items in the \textit{Window} Category, or adding your myWSU ID to \textit{Connection--Data--Auto-login username}.
+  \item You may wish to make further \textit{PuTTY} changes, such as adjusting items in \textit{Window} Category, or adding your myWSU ID to \textit{Connection--Data--Auto-login username}.
   \item If you wish to save these settings for future use, within the \textit{Session} Category, type a name for your session in the \textbf{Saved Sessions} field and click on \textbf{Save}.
   \item When ready to connect to \verb|rslab.cs.wichita.edu| click on \textbf{Open}, then enter your myWSU ID and password as prompted.
-  \item The first time you connect to \verb|rslab.cs.wichita.edu| a \textbf{PuTTY Security Alert} window will likely pop up stating \textit{``The server's host key is not cached in the registry.''} Check the server's \textit{key fingerprint} matches one of the rslab host key fingerprints listed at \hyperref[host_keys]{bottom of this document}, then click \textbf{Yes}.
+  \item The first time you connect to \verb|rslab.cs.wichita.edu| a \textbf{PuTTY Security Alert} window will likely pop up stating \textit{``The server's host key is not cached in the registry.''} Check the server's \textit{key fingerprint} matches one of the rslab host key fingerprints listed at the \hyperref[host_keys]{bottom of this document}, then click \textbf{Yes}.
   \item You may see a "\texttt{Could not chdir...}" error message when you open a connection to the rslab proxy server. Disregard this message. rslab does not need access to your user home directory for access to the network rack in EE 328D.
   \item Once logged into \verb|rslab.cs.wichita.edu|, connect to an rslab networking rack by typing (where \texttt{\#} is the rack number assigned to you by the lab GTA) \break
     \verb|telnet rack#|
-  \item Once connected to the terminal server for your assigned rack, use the menu options to connect into and disconnect from the Arista switches and Cisco router in the EE 328D networking rack.
-  \item At any time you can return to the terminal server menu by pressing \texttt{CTRL+SHIFT+6} and then \texttt{x}.
+  \item Once connected to the terminal server for your assigned rack, use the menu to connect/disconnect the Arista switches and Cisco router in the networking rack.
+  \item You can return to the terminal server menu by pressing \texttt{CTRL+SHIFT+6} and then \texttt{x}.
   \item To view all open connections in the session, return to the menu and press \texttt{16}.
   \item To exit from the terminal server and close the remote SSH connection to the rslab proxy server, return to the menu and press \texttt{18}.
 \end{enumerate}
 
 \textbf{NOTE 1:} You can open multiple \textit{PuTTY} windows from your Windows computer to access the same rack terminal server and connect to multiple network devices concurrently, but each switch or router can only be accessed by one terminal server session at a time. You can also use a terminal multiplexer such as \textit{tmux} or \textit{screen} within \verb|rslab| to open multiple, simulaneous telnet sessions to an rslab terminal server.
 
-\bigskip
+\smallskip
 
 \textbf{NOTE 2:} Due to WSU security policies, rslab network devices can only be remotely accessed from on campus in the labs or via the cslab Linux environment.
 
@@ -142,10 +143,10 @@ Password: arista
   \item Enter your myWSU password when prompted to do so.
   \item The first time you connect to \verb|rslab| you may see the warning: \break
     \verb|The authenticity of host 'rslab' can't be established.| \break
-    Check the server's \textit{key fingerprint} matches one of the rslab host key fingerprints listed at \hyperref[host_keys]{bottom of this document}, then type \verb|yes|.
+    Check the server's \textit{key fingerprint} matches one of the rslab host key fingerprints listed at the \hyperref[host_keys]{bottom of this document}, then type \verb|yes|.
   \item You may see a "\texttt{Could not chdir...}" error message when you open a connection to the rslab proxy server. Disregard this message. rslab does not need access to your user home directory for access to the network rack in EE 328D.
-  \item Once connected to the terminal server for your assigned rack, use the menu options to connect into and disconnect from the Arista switches and Cisco router in the EE 328D networking rack.
-  \item At any time you can return to the terminal server menu by pressing \texttt{CTRL+SHIFT+6} and then \texttt{x}.
+  \item Once connected to the terminal server for your assigned rack, use the menu to connect/disconnect the Arista switches and Cisco router in the networking rack.
+  \item You can return to the terminal server menu by pressing \texttt{CTRL+SHIFT+6} and then \texttt{x}.
   \item To view all open connections in the session, return to the menu and press \texttt{16}.
   \item To exit from the terminal server and close the remote SSH connection to the rslab proxy server, return to the menu and press \texttt{18}.
 \end{enumerate}
@@ -189,8 +190,8 @@ Password: arista
 %%     (where \texttt{\#} is the rack number assigned to you by the lab GTA)
 %% \item Enter your myWSU password when prompted to do so.
 %% \item You may see a "\texttt{Could not chdir...}" error message when you open a connection to the rslab proxy server. Disregard this message. rslab does not need access to your user home directory for access to the network rack in EE 328D.
-%% \item Once connected to the terminal server for your assigned rack, use the menu options to connect into and disconnect from the Arista switches and Cisco router in the EE 328D networking rack.
-%% \item At any time you can return to the terminal server menu by pressing \texttt{CTRL+SHIFT+6} and then \texttt{x}.
+%% \item Once connected to the terminal server for your assigned rack, use the menu to connect/disconnect the Arista switches and Cisco router in the networking rack.
+%% \item You can return to the terminal server menu by pressing \texttt{CTRL+SHIFT+6} and then \texttt{x}.
 %% \item To view all open connections in the session, return to the menu and press \texttt{16}.
 %% \item To exit from the terminal server and close the remote SSH connection to the rslab proxy server, return to the menu and press \texttt{18}.
 %% \end{enumerate}
@@ -244,14 +245,24 @@ When accessing the rslab remotely with PuTTY on a Windows client, a session log 
 \item Enter a name for the log file and click \textbf{Save} button to save.
 \item \textit{Optional:} Logging options can be saved as part of a host connection session in the \textit{PuTTY} \textbf{Saved Sessions} list.
 \item For further help on configuring logging in \textit{PuTTY}, see:\\ 
-\href{http://www.tricksguide.com/guide-how-to-capture-a-log-file-of-your-putty-session.html}{SiRu's guide on tricksguide.com}
+\href{https://the.earth.li/~sgtatham/putty/0.71/htmldoc/Chapter4.html#config-logging}{PuTTY User Manual: Section 4.2}
 \end{enumerate}
 
 \subsection*{Remote Access: cslab Linux Environment}
-When accessing the rslab remotely from a \textbf{cslab\_SSH\_CLI\_terminal} connection, a session log can be specified at the start of the remote SSH session by typing \break
-\verb!ssh -t rslab telnet rack# | tee log_filename!\break
-(where \texttt{\#} is the rack number assigned to you by the lab GTA and log\_filename is the path and filename for the log), i.e. \break
+When accessing the rslab remotely from a \textbf{cslab\_SSH\_CLI\_terminal} connection, a session log can be specified at the start of the remote SSH session by typing (where \texttt{\#} is the rack number assigned to you by lab GTA and log\_filename is the path and filename for log) \break
+\verb!ssh -t rslab telnet rack# | tee log_filename!
+
+\smallskip
+
+For example: \break
 \verb!ssh -t rslab telnet rack1 | tee cs764_assign1.log!
+
+\bigskip
+
+For details on how to download the log file from the cslab Linux environment to your local computer, refer to the \href{https://github.com/benroose/tutorials/blob/master/cslab_tutorials/eecs_tutorial_cslab_web_access.pdf}{eecs\_tutorial\_cslab\_web\_access} document.
+
+
+
 
 
 %----------------------------------------------------------------------------------------
