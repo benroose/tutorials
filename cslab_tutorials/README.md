@@ -6,6 +6,8 @@
 
 ## For more advanced SSH command-line users or for uploading/downloading files with SFTP, please read [eecs_tutorial_cslab_ssh_access tutorial](https://github.com/benroose/tutorials/blob/master/cslab_tutorials/eecs_tutorial_cslab_ssh_access.pdf).
 
+## For students in database classes, such as CS 665, using the cslab-db MariaDB/MySQL service please read [eecs_tutorial_cslab-db_access tutorial](https://github.com/benroose/tutorials/blob/master/cslab_tutorials/eecs_tutorial_cslab-db_access.pdf).
+
 ## For students in networking classes, such as CS 764 or CS 834, using the EE 328D Routing & Switching lab please read [eecs_tutorial_rslab_access tutorial](https://github.com/benroose/tutorials/blob/master/cslab_tutorials/eecs_tutorial_rslab_access.pdf).
 
 ## CS class graders please read [eecs_tutorial_cslab_graders tutorial](https://github.com/benroose/tutorials/blob/master/cslab_tutorials/eecs_tutorial_cslab_graders.pdf).
