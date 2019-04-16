@@ -126,16 +126,19 @@
   \item Follow the \href{https://github.com/benroose/tutorials/blob/master/cslab_tutorials/eecs_tutorial_cslab_web_access.pdf}{eecs\_tutorial\_cslab\_web\_access} document to log into \href{https://cslab-gateway.cs.wichita.edu/}{cslab-gateway.cs.wichita.edu} using a web-browser.
   \item Once logged into cslab \textit{guacamole}, open either a \textbf{cslab\_RDP\_GUI\_desktop} or \textbf{cslab\_SSH\_CLI\_terminal} connection.
   \item Alternatively, you can directly SSH into a cslab node if you have previously configured your SSH client. For further information on configuring an SSH client to access cslab, please follow the \href{https://github.com/benroose/tutorials/blob/master/cslab_tutorials/eecs_tutorial_cslab_ssh_access.pdf}{eecs\_tutorial\_cslab\_ssh\_access} document.
-  \item Code your C, C++, or Java program within cslab using any of the installed MySQL API connectors. \break
-    Currently installed MySQL API connectors include the MySQL Connector for C/C++ and the Java database (JDBC) driver for MySQL.
+  \item Code your C, C++, or Java program within cslab using a MariaDB/MySQL API connector. \break
   \item You will need to use the following details in your code to access your MySQL database (where \texttt{\#} is the dbuser assigned to you by your course instructor).
     \begin{itemize}
       \item \verb|host: cslab-db.cs.wichita.edu|
       \item \verb|port: 3306|
-      \item \verb|db: dbuser#_database|
+      \item \verb|database: dbuser#_database|
       \item \verb|user: dbuser#|
-      \item \verb|passwd:| (the password assigned to you by your course instructor)
+      \item \verb|password:| (the password assigned to you by your course instructor)
     \end{itemize}
+  \item You will find a simple Java example using the MariaDB Connector/J with the standard Jave JDBC API in \href{https://github.com/benroose/cslab_db_java_test}{Ben Roose's GitHub repository here}.
+  \item To compile and run Ben's Java example code, you will need to first clone/download his \verb|cslab_db_java_test| repository by typing \break
+    \verb|git clone https://github.com/benroose/cslab_db_java_test.git|
+  \item For further instructions on how to compile and run Ben's example code, follow the README.md file included within the newly cloned/downloaded directory.
   \item For further information on how to use MariaDB/MySQL API connectors, please see the \href{https://mariadb.com/kb/en/library/connectors/}{MariaDB Application Programming Interfaces documentation}.
   \item For questions on how to implement SQL queries within your code or if you wish to use a MySQL connector not currently installed within cslab, please speak with your course instructor.
 \end{enumerate}
